@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
    
-    <title>Edu Authorities Student Management System|| Update About Us</title>
+    <title>MLCK Student Management System|| Update About Us</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
@@ -21,10 +21,6 @@
           new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
         }
         </script>
-        <!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
-    <!-- Layout styles -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
     <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
