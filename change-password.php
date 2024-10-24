@@ -33,9 +33,7 @@ echo '<script>alert("Your current password is wrong")</script>';
 }
 }
   ?>
-<!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
+ 
 
  
       <!-- partial:partials/_navbar.html -->

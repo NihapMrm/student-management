@@ -43,7 +43,11 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
+                <?php if ($_SESSION['user_type'] === 'admin'): ?>
+
                   <li class="nav-item"> <a class="nav-link" href="add-class.php">Add Class</a></li>
+                  <?php endif; ?>
+
                   <li class="nav-item"> <a class="nav-link" href="manage-class.php">Manage Class</a></li>
                 </ul>
               </div>
@@ -55,14 +59,21 @@
               </a>
               <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
+                <?php if ($_SESSION['user_type'] === 'admin'): ?>
+
                   <li class="nav-item"> <a class="nav-link" href="add-students.php">Add Students</a></li>
+                  <?php endif; ?>
+
                   <li class="nav-item"> <a class="nav-link" href="manage-students.php">Manage Students</a></li>
                 </ul>
               </div>
             </li>
-            <!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
+            <li class="nav-item">
+              <a class="nav-link" href="attendance.php">
+              <i class="icon-flag menu-icon"></i>
+              <span class="menu-title">Attendance</span>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="icon-doc menu-icon"></i>
@@ -113,20 +124,7 @@
               </a>
             </li>
 
-             <li class="nav-item">
-              <a class="nav-link" target="a_blank" href="https://mayurik.com/source-code/P0886/modern-student-management-system-project-in-php-and-mysql">
-                <i class="icon-info menu-icon"></i>
-                <span class="menu-title">Advance Version Info</span>
-              </a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" target="a_blank" href="https://www.youtube.com/watch?v=EY8OO7hxEys&t">
-                <i class="icon-eye menu-icon"></i>
-                <span class="menu-title">Advance Video Demo</span>
-              </a>
-            </li>
+            
             </li>
           </ul>
-        </nav><!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
+        </nav>
