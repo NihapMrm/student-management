@@ -1,40 +1,30 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
+include('../includes/dbconnection.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+  exit();
   } else{
-   // Code for deletion
-if(isset($_GET['delid']))
-{
-$rid=intval($_GET['delid']);
-$sql="delete from tblnotice where ID=:rid";
-$query=$dbh->prepare($sql);
-$query->bindParam(':rid',$rid,PDO::PARAM_STR);
-$query->execute();
- echo "<script>alert('Data deleted');</script>"; 
-  echo "<script>window.location.href = 'manage-notice.php'</script>";     
 
-
-}
 ?>
 
       <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
+     <?php include_once('../includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        <?php include_once('includes/sidebar.php');?>
+        <?php include_once('../includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
              <div class="page-header">
-              <h3 class="page-title"> Manage Notice </h3>
+              <h3 class="page-title"> Manage Class </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"> Manage Notice</li>
+                  <li class="breadcrumb-item active" aria-current="page"> Manage Class</li>
                 </ol>
               </nav>
             </div>
@@ -43,19 +33,16 @@ $query->execute();
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Manage Notice</h4>
-                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Notice</a>
+                      <h4 class="card-title mb-sm-0">Manage Class</h4>
+                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Classes</a>
                     </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
                         <thead>
                           <tr>
                             <th class="font-weight-bold">S.No</th>
-                            <th class="font-weight-bold">Notice Title</th>
-                            <th class="font-weight-bold">Class</th>
+                            <th class="font-weight-bold">Class Name</th>
                             <th class="font-weight-bold">Section</th>
-                            <th class="font-weight-bold">Notice Date</th>
-                            <th class="font-weight-bold">Action</th>
                             
                           </tr>
                         </thead>
@@ -69,13 +56,13 @@ $query->execute();
         // Formula for pagination
         $no_of_records_per_page =15;
         $offset = ($pageno-1) * $no_of_records_per_page;
-       $ret = "SELECT ID FROM tblnotice";
+       $ret = "SELECT ID FROM tblclass";
 $query1 = $dbh -> prepare($ret);
 $query1->execute();
 $results1=$query1->fetchAll(PDO::FETCH_OBJ);
 $total_rows=$query1->rowCount();
 $total_pages = ceil($total_rows / $no_of_records_per_page);
-$sql="SELECT tblclass.ID,tblclass.ClassName,tblclass.Section,tblnotice.NoticeTitle,tblnotice.CreationDate,tblnotice.ClassId,tblnotice.ID as nid from tblnotice join tblclass on tblclass.ID=tblnotice.ClassId LIMIT $offset, $no_of_records_per_page";
+$sql="SELECT * from tblclass LIMIT $offset, $no_of_records_per_page";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -88,19 +75,14 @@ foreach($results as $row)
                           <tr>
                            
                             <td><?php echo htmlentities($cnt);?></td>
-                            <td><?php  echo htmlentities($row->NoticeTitle);?></td>
                             <td><?php  echo htmlentities($row->ClassName);?></td>
                             <td><?php  echo htmlentities($row->Section);?></td>
-                            <td><?php  echo htmlentities($row->CreationDate);?></td>
-                            <td>
-                              <a href="edit-notice-detail.php?editid=<?php echo htmlentities ($row->ID);?>" class="btn btn-primary btn-sm"><i class="icon-eye"></i></a>
-                                                <a href="manage-notice.php?delid=<?php echo ($row->ID);?>" onclick="return confirm('Do you really want to Delete ?');" class="btn btn-danger btn-sm"> <i class="icon-trash"></i></a>
-                            </td> 
+                            
                           </tr><?php $cnt=$cnt+1;}} ?>
                         </tbody>
                       </table>
                     </div>
-                   <div align="left">
+                    <div align="left">
     <ul class="pagination" >
         <li><a href="?pageno=1"><strong>First></strong></a></li>
         <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
@@ -119,7 +101,7 @@ foreach($results as $row)
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+         <?php include_once('../includes/footer.php');?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -127,4 +109,4 @@ foreach($results as $row)
       <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-<?php }  ?>
+    <?php }  ?>

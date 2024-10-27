@@ -1,26 +1,29 @@
 
 
-
-    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+<?php
+// Define the base URL for your project
+$base_url = 'http://localhost/royalsgrid/Student management system/'; 
+?>
+    <script src="<?php echo $base_url; ?>assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
-    <script src="assets/vendors/select2/select2.min.js"></script>
-    <script src="assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/select2/select2.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="assets/vendors/chart.js/Chart.min.js"></script>
-    <script src="assets/vendors/moment/moment.min.js"></script>
-    <script src="assets/vendors/daterangepicker/daterangepicker.js"></script>
-    <script src="assets/vendors/chartist/chartist.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/moment/moment.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="<?php echo $base_url; ?>assets/vendors/chartist/chartist.min.js"></script>
 
-    <script src="assets/js/off-canvas.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/js/off-canvas.js"></script>
+    <script src="<?php echo $base_url; ?>assets/js/bootstrap.min.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <script src="assets/js/typeahead.js"></script>
-    <script src="assets/js/select2.js"></script>
+    <script src="<?php echo $base_url; ?>assets/js/typeahead.js"></script>
+    <script src="<?php echo $base_url; ?>assets/js/select2.js"></script>
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!-- <script src="assets/js/dashboard.js"></script> -->
+    <!-- <script src="<?php echo $base_url; ?>assets/js/dashboard.js"></script> -->
     <!-- End custom js for this page -->
     <script>
       function onReady(callback) {
@@ -43,7 +46,5 @@ onReady(function () {
 });
     </script>
   </body>
-  <!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
+
 </html>

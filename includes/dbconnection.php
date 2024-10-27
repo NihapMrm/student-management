@@ -13,6 +13,4 @@ catch (PDOException $e)
 {
 exit("Error: " . $e->getMessage());
 }
-?><!--  Orginal Author Name: Mayuri K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mayuri.infospace@gmail.com  
- Visit website : www.mayurik.com -->  
+?> 

@@ -21,7 +21,12 @@ $query->bindParam(':eid',$eid,PDO::PARAM_STR);
 }
 
   ?>
+<<<<<<< HEAD
 
+=======
+ 
+      <!-- partial:partials/_navbar.html -->
+>>>>>>> 589ace871213ffd29f354b38f6f4b068c8974925
      <?php include_once('includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">

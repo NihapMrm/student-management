@@ -1,28 +1,28 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
+include('../includes/dbconnection.php');
 error_reporting(0);
 if (strlen($_SESSION['sturecmsaid']==0)) {
   header('location:logout.php');
   } else{
 if(isset($_POST['submit']))
 {
-$adminid=$_SESSION['sturecmsaid'];
+$teacherid=$_SESSION['sturecmsaid'];
 $cpassword=md5($_POST['currentpassword']);
 $newpassword=md5($_POST['newpassword']);
-$sql ="SELECT ID FROM tbladmin WHERE ID=:adminid and Password=:cpassword";
+$sql ="SELECT ID FROM tblteacher WHERE ID=:teacherid and Password=:cpassword";
 $query= $dbh -> prepare($sql);
-$query-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$query-> bindParam(':teacherid', $teacherid, PDO::PARAM_STR);
 $query-> bindParam(':cpassword', $cpassword, PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 
 if($query -> rowCount() > 0)
 {
-$con="update tbladmin set Password=:newpassword where ID=:adminid";
+$con="update tblteacher set Password=:newpassword where ID=:teacherid";
 $chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$chngpwd1-> bindParam(':teacherid', $teacherid, PDO::PARAM_STR);
 $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
 $chngpwd1->execute();
 
@@ -37,11 +37,11 @@ echo '<script>alert("Your current password is wrong")</script>';
 
  
       <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
+     <?php include_once('../includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
+      <?php include_once('../includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -86,7 +86,7 @@ echo '<script>alert("Your current password is wrong")</script>';
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+         <?php include_once('../includes/footer.php');?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
