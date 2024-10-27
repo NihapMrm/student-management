@@ -41,9 +41,7 @@ echo "<script>alert('Invalid Details');</script>";
 }
 }
 
-?><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com -->  
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

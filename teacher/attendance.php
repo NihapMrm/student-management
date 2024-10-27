@@ -28,71 +28,8 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
                 </ol>
               </nav>
             </div>
-            <div class="row">
+            <div>
             <?php
-// Include your database connection here
-// Example: $dbh = new PDO('mysql:host=localhost;dbname=your_db', 'username', 'password');
-
-// Fetch sections and students based on selected class name and section
-if (isset($_GET['className']) && !isset($_GET['section'])) {
-    $className = $_GET['className'];
-
-    // Query to get sections based on the selected class name
-    $sections = "SELECT Section FROM tblclass WHERE ClassName = :className ORDER BY Section ASC";
-    $query = $dbh->prepare($sections);
-    $query->bindParam(':className', $className, PDO::PARAM_STR);
-    $query->execute();
-    $results = $query->fetchAll();
-
-    // Output the sections for the selected class
-    if ($results) {
-        foreach ($results as $section) {
-            echo "<option value='" . htmlspecialchars($section['Section']) . "'>" 
-                . htmlspecialchars($section['Section']) 
-                . "</option>";
-        }
-    } else {
-        echo "<option value=''>No sections available</option>";
-    }
-    exit(); // End script execution after outputting the sections
-}
-
-if (isset($_GET['className']) && isset($_GET['section'])) {
-    $className = $_GET['className'];
-    $section = $_GET['section'];
-
-    // Query to get ClassID based on selected ClassName and Section
-    $classIdQuery = "SELECT ID FROM tblclass WHERE ClassName = :className AND Section = :section";
-    
-    $query = $dbh->prepare($classIdQuery);
-    $query->bindParam(':className', $className, PDO::PARAM_STR);
-    $query->bindParam(':section', $section, PDO::PARAM_STR);
-    $query->execute();
-    $class = $query->fetch(PDO::FETCH_ASSOC);
-   
-    if ($class) {
-        // Now use ClassID to get students
-        $classID = $class['ID'];
-        $studentsQuery = "SELECT ID, StudentName FROM tblstudent WHERE StudentClass = :ID";
-        
-        $query = $dbh->prepare($studentsQuery);
-        $query->bindParam(':ID', $classID, PDO::PARAM_INT);
-        $query->execute();
-        $students = $query->fetchAll();
-
-        // Output the students for the selected class and section
-        if ($students) {
-            foreach ($students as $student) {
-                echo "<p>ID: " . htmlspecialchars($student['ID']) . " - Name: " . htmlspecialchars($student['StudentName']) . "</p>";
-            }
-        } else {
-            echo "<p>No students found for this class and section.</p>";
-        }
-    } else {
-        echo "<p>Class not found.</p>";
-    }
-    exit(); // End script execution after outputting the students
-}
 
 // Query to load unique class names for the first dropdown
 $classes = "SELECT DISTINCT ClassName FROM tblclass";
@@ -101,7 +38,7 @@ $query->execute();
 $results = $query->fetchAll();
 
 ?>
-
+<div class="d-flex flex-row gap">
 <!-- Class dropdown -->
 <?php if ($results): ?>
     <select name='class' id='classSelect' class='form-control' onchange='loadSections(this.value)'>
@@ -120,13 +57,17 @@ $results = $query->fetchAll();
 <select name="section" id="sectionSelect" class="form-control" onchange="loadStudents()">
     <option value="">Select a Section</option>
 </select>
-<div>
-    <label for="attendanceDate">Select Date:</label>
+
     <input type="date" id="attendanceDate" class="form-control" onchange="loadStudents()">
+
+    </div>
+<!-- Div to display students -->
+<div id="studentList">
+    
 </div>
 
-<!-- Div to display students -->
-<div id="studentList"></div>
+<button onclick="submitAttendance()" id="attendanceSubmit" class="btn btn-primary" style="display: none;">Submit Attendance</button>
+
 
 <script>
 // Function to dynamically load sections based on the selected class name
@@ -151,6 +92,7 @@ function loadStudents() {
     var className = document.getElementById('classSelect').value;
     var section = document.getElementById('sectionSelect').value;
     var date = document.getElementById('attendanceDate').value;
+    var attendanceSubmit = document.getElementById('attendanceSubmit');
 
     // Clear existing student list before loading new students
     var studentListDiv = document.getElementById('studentList');
@@ -165,8 +107,40 @@ function loadStudents() {
             }
         };
         xhr.send();
+
+        attendanceSubmit.style.display = 'block';
     }
 }
+
+function submitAttendance() {
+    var className = document.getElementById('classSelect').value;
+    var section = document.getElementById('sectionSelect').value;
+    var date = document.getElementById('attendanceDate').value;
+
+    
+
+    // Collect attendance data
+    var attendanceData = {};
+    var radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(function(radio) {
+        if (radio.checked) {
+            attendanceData[radio.name] = radio.value; // Store the attendance result
+        }
+    });
+
+    // Send attendance data to the server
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "attendanceback.php", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            alert(xhr.responseText); // Handle success message
+        }
+    };
+    xhr.send(JSON.stringify({ className: className, section: section, date: date, attendance: attendanceData }));
+}
+
+
 </script>
 
 
