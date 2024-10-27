@@ -75,6 +75,19 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#timetable" aria-expanded="false" aria-controls="timetable">
+                <i class="icon-doc menu-icon"></i>
+                <span class="menu-title">Time Table</span>
+                
+              </a>
+              <div class="collapse" id="timetable">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="st-time-table.php"> Student Time Table </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="tr-time-table.php"> Teacher Time Table </a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="icon-doc menu-icon"></i>
                 <span class="menu-title">Notice</span>

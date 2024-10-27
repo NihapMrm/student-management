@@ -40,6 +40,11 @@ return true;
 
   </head>
   <body>
+    <style>
+      .gap{
+  gap: 20px;
+}
+    </style>
     <div id="page"></div>
 <div id="loading"></div>
     <div class="container-scroller">
@@ -49,9 +54,18 @@ return true;
             <img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo" /></a>
-        </div><?php
+        </div>
+        
+        
+  <?php
          $aid= $_SESSION['sturecmsaid'];
-$sql="SELECT * from tbladmin where ID=:aid";
+
+         if ( $_SESSION['user_type'] == 'admin' ){
+          $sql="SELECT * from tbladmin where ID=:aid";
+         } else if ( $_SESSION['user_type'] == 'teacher' ){
+          $sql="SELECT * from tblteacher where ID=:aid";
+         }
+
 
 $query = $dbh -> prepare($sql);
 $query->bindParam(':aid',$aid,PDO::PARAM_STR);
@@ -69,11 +83,11 @@ foreach($results as $row)
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <img class="img-xs rounded-circle ml-2" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->AdminName);?> </span></a>
+                <img class="img-xs rounded-circle ml-2" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> <?php  echo htmlentities($row->name);?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header d-flex">
                   <img class="img-md rounded-circle" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" width="60px" alt="Profile image">
-                  <div><p class="mb-1 mt-3"><?php  echo htmlentities($row->AdminName);?></p>
+                  <div><p class="mb-1 mt-3"><?php  echo htmlentities($row->name);?></p>
                   <p class="font-weight-light text-muted mb-0"><?php  echo htmlentities($row->Email);?></p> </div>
                   
                 </div><?php $cnt=$cnt+1;}} ?>

@@ -19,9 +19,7 @@ $query->execute();
 
 }
 ?>
-<!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
+
       <!-- partial:partials/_navbar.html -->
      <?php include_once('includes/header.php');?>
       <!-- partial -->
@@ -143,9 +141,7 @@ $cnt=$cnt+1;
                 </div>
               </div>
             </div>
-          </div><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
+          </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
          <?php include_once('includes/footer.php');?>

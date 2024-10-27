@@ -18,9 +18,7 @@ $query->execute();
 
 
 }
-?><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
+?>
 
       <!-- partial:partials/_navbar.html -->
      <?php include_once('includes/header.php');?>
@@ -129,6 +127,4 @@ foreach($results as $row)
       <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-<?php }  ?><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
+<?php }  ?>
