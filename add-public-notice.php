@@ -60,7 +60,7 @@ echo "<script>window.location.href ='add-public-notice.php'</script>";
                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">Notice Message</label>
-                        <textarea name="notmsg" value="" class="form-control"></textarea>
+                        <textarea name="notmsg" value="" class="form-control" rows="8"></textarea>
                       </div>
                    
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>

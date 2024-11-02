@@ -118,7 +118,7 @@
               </div>
             </li>
             <?php endif; ?>
-            
+            <?php if ($_SESSION['user_type'] === 'admin'): ?>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#auth1" aria-expanded="false" aria-controls="auth">
                 <i class="icon-doc menu-icon"></i>
@@ -130,32 +130,26 @@
                   <li class="nav-item"> <a class="nav-link" href="manage-public-notice.php"> Manage Public Notice </a></li>
                 </ul>
               </div>
-            <!--   <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth">
-               <i class="icon-docs menu-icon"></i>
-                <span class="menu-title">Pages</span>
-                
-              </a>
-              <div class="collapse" id="auth2">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="about-us.php"> About Us </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="contact-us.php"> Contact Us </a></li>
-                </ul>
-              </div>
-            </li> -->
+
+            </li> 
+            <?php endif; ?>
+
+            <?php if ($_SESSION['user_type'] !== 'admin'): ?>
               <li class="nav-item">
-              <a class="nav-link" href="between-dates-reports.php">
-              <i class="icon-flag menu-icon"></i>
-              <span class="menu-title">Reports</span>
+              <a class="nav-link" href="notice.php">
+              <i class="icon-doc menu-icon"></i>
+              <span class="menu-title">Notice</span>
               </a>
             </li>
+              <?php endif; ?>
+            <?php if ($_SESSION['user_type'] !== 'student'): ?>
             <li class="nav-item">
               <a class="nav-link" href="search.php">
                 <i class="icon-magnifier menu-icon"></i>
-                <span class="menu-title">Search</span>
+                <span class="menu-title">Search Student</span>
               </a>
             </li>
-
+            <?php endif; ?>
             
             </li>
           </ul>
