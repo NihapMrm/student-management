@@ -5,7 +5,7 @@ session_start();
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='login.php'; </script>";
+    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
     exit();
 } else{
     $teacherId = $_SESSION['sturecmsaid'];
@@ -76,24 +76,7 @@ $totstu=$query2->rowCount();
                         </div>
                       </div>
                     </div>
-                      <div class="col-md-6 report-inner-cards-wrapper">
-                        <div class="report-inner-card color-3">
-                        <div class="inner-card-text text-white">
-                          <?php 
-                        $sql3 ="SELECT * from  tblnotice";
-$query3 = $dbh -> prepare($sql3);
-$query3->execute();
-$results3=$query3->fetchAll(PDO::FETCH_OBJ);
-$totnotice=$query3->rowCount();
-?>
-                          <span class="report-title">Total Class Notice</span>
-                          <h4><?php echo htmlentities($totnotice);?></h4>
-                          <a href="manage-notice.php"><span class="report-count"> View Notices</span></a>
-                        </div>
-                        <div class="inner-card-icon ">
-                          <i class="icon-doc"></i>
-                        </div>
-                      </div>
+                     
                     </div>
                       <div class="col-md-6 report-inner-cards-wrapper">
                         <div class="report-inner-card color-4">

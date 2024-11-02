@@ -1,19 +1,31 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 session_start();
 //error_reporting(0);
-include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
-  } else{
-   
-  ?>
+include('../includes/dbconnection.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+    exit();
+} else{
+    $studentId = $_SESSION['sturecmsaid'];
+    $sql = "SELECT username FROM tblstudent WHERE id = :id";
+$query = $dbh->prepare($sql);
+$query->bindParam(':id', $teacherId, PDO::PARAM_INT);
+$query->execute();
+$teacher = $query->fetch(PDO::FETCH_OBJ);
+
+  ?> 
 
       <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
+     <?php include_once('../includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        <?php include_once('includes/sidebar.php');?>
+        <?php include_once('../includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -67,24 +79,7 @@ $totstu=$query2->rowCount();
                         </div>
                       </div>
                     </div>
-                      <div class="col-md-6 report-inner-cards-wrapper">
-                        <div class="report-inner-card color-3">
-                        <div class="inner-card-text text-white">
-                          <?php 
-                        $sql3 ="SELECT * from  tblnotice";
-$query3 = $dbh -> prepare($sql3);
-$query3->execute();
-$results3=$query3->fetchAll(PDO::FETCH_OBJ);
-$totnotice=$query3->rowCount();
-?>
-                          <span class="report-title">Total Class Notice</span>
-                          <h4><?php echo htmlentities($totnotice);?></h4>
-                          <a href="manage-notice.php"><span class="report-count"> View Notices</span></a>
-                        </div>
-                        <div class="inner-card-icon ">
-                          <i class="icon-doc"></i>
-                        </div>
-                      </div>
+                     
                     </div>
                       <div class="col-md-6 report-inner-cards-wrapper">
                         <div class="report-inner-card color-4">
@@ -120,7 +115,7 @@ $totpublicnotice=$query4->rowCount();
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+         <?php include_once('../includes/footer.php');?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

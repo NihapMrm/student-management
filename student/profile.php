@@ -1,22 +1,22 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
+include('../includes/dbconnection.php');
 if (strlen($_SESSION['sturecmsaid']==0)) {
   header('location:logout.php');
   } else{
     if(isset($_POST['submit']))
   {
-    $adminid=$_SESSION['sturecmsaid'];
-    $AName=$_POST['adminname'];
+    $teacherId = $_SESSION['sturecmsaid'];
+    $TName=$_POST['teachername'];
   $mobno=$_POST['mobilenumber'];
   $email=$_POST['email'];
-  $sql="update tbladmin set AdminName=:adminname,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
+  $sql="update tblteacher set name=:name,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
      $query = $dbh->prepare($sql);
-     $query->bindParam(':adminname',$AName,PDO::PARAM_STR);
+     $query->bindParam(':name',$TName,PDO::PARAM_STR);
      $query->bindParam(':email',$email,PDO::PARAM_STR);
      $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
-     $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
+     $query->bindParam(':aid',$teacherId,PDO::PARAM_STR);
 $query->execute();
 
     echo '<script>alert("Your profile has been updated")</script>';
@@ -26,20 +26,20 @@ $query->execute();
   ?>
 
       <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
+     <?php include_once('../includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
+      <?php include_once('../includes/sidebar.php');?>
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Admin Profile </h3>
+              <h3 class="page-title"> Teacher Profile </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Admin Profile</li>
+                  <li class="breadcrumb-item active" aria-current="page">Teacher Profile</li>
                 </ol>
               </nav>
             </div>
@@ -48,12 +48,12 @@ $query->execute();
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Admin Profile</h4>
+                    <h4 class="card-title" style="text-align: center;">Teacher Profile</h4>
                    
                     <form class="forms-sample" method="post">
                       <?php
 
-$sql="SELECT * from  tbladmin";
+$sql="SELECT * from tblteacher";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -63,12 +63,12 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
                       <div class="form-group">
-                        <label for="exampleInputName1">Admin Name</label>
-                        <input type="text" name="adminname" value="<?php  echo $row->AdminName;?>" class="form-control" required='true'>
+                        <label for="exampleInputName1">Teacher Name</label>
+                        <input type="text" name="teachername" value="<?php  echo $row->name;?>" class="form-control" required='true'>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail3">User Name</label>
-                        <input type="text" name="username" value="<?php  echo $row->UserName;?>" class="form-control" readonly="">
+                        <input type="text" name="username" value="<?php  echo $row->username;?>" class="form-control" readonly="">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword4">Contact Number</label>
@@ -92,7 +92,7 @@ foreach($results as $row)
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
+         <?php include_once('../includes/footer.php');?>
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

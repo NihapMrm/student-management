@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
@@ -93,13 +91,12 @@ if (isset($_POST['login'])) {
                   <div class="mt-3">
                     <button class="btn btn-success btn-block loginbtn" name="login" type="submit">Login</button>
                   </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" id="remember" class="form-check-input" name="remember" <?php if(isset($_COOKIE["user_login"])) { ?> checked <?php } ?> /> Keep me signed in </label>
-                    </div>
-                    <a href="forgot-password.php" class="auth-link text-black">Forgot password?</a>
+                  <div class="mt-3 d-flex gap-3 justify-content-between">
+                    <a href="../" class="btn btn-success">Admin</a>
+                    <a href="../student" class="btn btn-success">Student</a>
+
                   </div>
+              
          <!--          <div class="mb-2">
                     <a href="../index.php" class="btn btn-block btn-facebook auth-form-btn">
                       <i class="icon-social-home mr-2"></i>Back Home </a>
