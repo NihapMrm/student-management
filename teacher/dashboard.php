@@ -5,7 +5,7 @@ session_start();
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='login.php'; </script>";
+    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
     exit();
 } else{
     $teacherId = $_SESSION['sturecmsaid'];

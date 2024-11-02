@@ -31,12 +31,7 @@ if($query -> rowCount() == 0)
 {
 $extension = substr($image,strlen($image)-4,strlen($image));
 $allowed_extensions = array(".jpg","jpeg",".png",".gif");
-if(!in_array($extension,$allowed_extensions))
-{
-echo "<script>alert('Logo has Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
-}
-else
-{
+
 $image=md5($image).time().$extension;
  move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$image);
 $sql="insert into tblstudent(StudentName,StudentEmail,StudentClass,Gender,DOB,StuID,FatherName,MotherName,ContactNumber,AltenateNumber,Address,UserName,Password,Image)values(:stuname,:stuemail,:stuclass,:gender,:dob,:stuid,:fname,:mname,:connum,:altconnum,:address,:uname,:password,:image)";
@@ -65,7 +60,7 @@ echo "<script>window.location.href ='add-students.php'</script>";
     {
          echo '<script>alert("Something Went Wrong. Please try again")</script>';
     }
-}}
+}
 
 else
 {
@@ -104,15 +99,15 @@ echo "<script>alert('Username or Student Id  already exist. Please try again');<
                       
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Student Name</label>
-                        <input type="text" name="stuname" value="" class="form-control" required='true'>
+                        <input type="text" name="stuname" value="" class="form-control"required>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Student Email</label>
-                        <input type="text" name="stuemail" value="" class="form-control" required='true'>
+                        <input type="text" name="stuemail" value="" class="form-control">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputEmail3">Student Class</label>
-                        <select  name="stuclass" class="form-control" required='true'>
+                        <select  name="stuclass" class="form-control"required>
                           <option value="">Select Class</option>
                          <?php 
 
@@ -130,7 +125,7 @@ foreach($result2 as $row1)
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Gender</label>
-                        <select name="gender" value="" class="form-control" required='true'>
+                        <select name="gender" value="" class="form-control"required>
                           <option value="">Choose Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
@@ -138,33 +133,33 @@ foreach($result2 as $row1)
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Date of Birth</label>
-                        <input type="date" name="dob" value="" class="form-control" required='true'>
+                        <input type="date" name="dob" value="" class="form-control">
                       </div>
                      
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Student ID</label>
-                        <input type="text" name="stuid" value="" class="form-control" required='true'>
+                        <input type="text" name="stuid" value="" class="form-control"required>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Student Photo</label>
-                        <input type="file" name="image" value="" class="form-control" required='true'>
+                        <input type="file" name="image" value="" class="form-control">
                       </div>
                       <h3 class="col-md-12">Parents/Guardian's details</h3>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Father's Name</label>
-                        <input type="text" name="fname" value="" class="form-control" required='true'>
+                        <input type="text" name="fname" value="" class="form-control">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Mother's Name</label>
-                        <input type="text" name="mname" value="" class="form-control" required='true'>
+                        <input type="text" name="mname" value="" class="form-control">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Contact Number</label>
-                        <input type="text" name="connum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
+                        <input type="text" name="connum" value="" class="form-control" maxlength="10" pattern="[0-9]+">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Alternate Contact Number</label>
-                        <input type="text" name="altconnum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
+                        <input type="text" name="altconnum" value="" class="form-control" maxlength="10" pattern="[0-9]+">
                       </div>
                       <div class="form-group col-md-12">
                         <label for="exampleInputName1">Address</label>
@@ -173,11 +168,11 @@ foreach($result2 as $row1)
                     <h3 class="col-md-12">Login details</h3>
                     <div class="form-group col-md-6">
                         <label for="exampleInputName1">User Name</label>
-                        <input type="text" name="uname" value="" class="form-control" required='true'>
+                        <input type="text" name="uname" value="" class="form-control"required>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Password</label>
-                        <input type="Password" name="password" value="" class="form-control" required='true'>
+                        <input type="Password" name="password" value="" class="form-control"required>
                       </div>
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
                      
