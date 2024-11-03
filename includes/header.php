@@ -64,7 +64,9 @@ return true;
           $sql="SELECT * from tbladmin where ID=:aid";
          } else if ( $_SESSION['user_type'] == 'teacher' ){
           $sql="SELECT * from tblteacher where ID=:aid";
-         }
+         } else if ( $_SESSION['user_type'] == 'student' ){
+          $sql = "SELECT StudentName as name, StudentEmail as email from tblstudent where ID=:aid";
+                 }
 
 
 $query = $dbh -> prepare($sql);

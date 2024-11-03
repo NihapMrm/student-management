@@ -8,15 +8,15 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
     if(isset($_POST['submit']))
   {
     $teacherId = $_SESSION['sturecmsaid'];
-    $AName=$_POST['adminname'];
+    $TName=$_POST['teachername'];
   $mobno=$_POST['mobilenumber'];
   $email=$_POST['email'];
-  $sql="update tbladmin set AdminName=:adminname,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
+  $sql="update tblteacher set name=:name,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
      $query = $dbh->prepare($sql);
-     $query->bindParam(':adminname',$AName,PDO::PARAM_STR);
+     $query->bindParam(':name',$TName,PDO::PARAM_STR);
      $query->bindParam(':email',$email,PDO::PARAM_STR);
      $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
-     $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
+     $query->bindParam(':aid',$teacherId,PDO::PARAM_STR);
 $query->execute();
 
     echo '<script>alert("Your profile has been updated")</script>';

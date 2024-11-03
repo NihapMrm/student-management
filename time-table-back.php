@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 include('includes/dbconnection.php');
 
 if (isset($_GET['className']) && !isset($_GET['sectionName'])) {
@@ -59,7 +56,7 @@ if (isset($_GET['className']) && isset($_GET['sectionName'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && isset($_POST['classID'])) {
     // Handle image upload
     $classID = $_POST['classID'];
     $targetDir = "assets/uploads/StTimeTables/";
@@ -103,4 +100,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteImage'])) {
     echo "Image deleted.";
     exit();
 }
+
+
+if (isset($_GET['teacherId'])) {
+    // Find Teacher ID and handle timetable operations
+    $teacherId = $_GET['teacherId'];
+    
+    // Check if a timetable image exists for the Teacher ID
+    $sql = "SELECT ImagePath FROM tbltrtimetable WHERE TeacherId = :teacherId";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':teacherId', $teacherId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    
+    if ($result) {
+        echo json_encode(['exists' => true, 'imagePath' => $result['ImagePath'], 'teacherId' => $teacherId]);
+    } else {
+        echo json_encode(['exists' => false, 'teacherId' => $teacherId]);
+    }
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && isset($_POST['teacherId'])) {
+    // Handle image upload
+    $teacherId = $_POST['teacherId'];
+    $targetDir = "assets/uploads/TrTimeTables/";
+    $randomName = uniqid() . '.' . strtolower(pathinfo($_FILES['timetableImage']['name'], PATHINFO_EXTENSION));
+    $targetFile = $targetDir . $randomName;
+    $check = getimagesize($_FILES['timetableImage']['tmp_name']);
+    
+    if ($check !== false) {
+        if (move_uploaded_file($_FILES['timetableImage']['tmp_name'], $targetFile)) {
+            $sql = "INSERT INTO tbltrtimetable (TeacherId, ImagePath) VALUES (:teacherId, :imagePath)
+                    ON DUPLICATE KEY UPDATE ImagePath = :imagePath";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':teacherId', $teacherId, PDO::PARAM_INT);
+            $query->bindParam(':imagePath', $targetFile, PDO::PARAM_STR);
+            $query->execute();
+            echo "Time Table has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    } else {
+        echo "File is not an image.";
+    }
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteImage'])) {
+    // Handle image deletion
+    $teacherId = $_POST['teacherId'];
+    $sql = "DELETE FROM tbltrtimetable WHERE TeacherId = :teacherId";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':teacherId', $teacherId, PDO::PARAM_INT);
+    $query->execute();
+    echo "Image deleted.";
+    exit();
+}
+
+
+
+
 ?>

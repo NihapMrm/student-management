@@ -93,12 +93,7 @@ echo "<script>alert('Invalid Details');</script>";
                     <a href="student" class="btn btn-success">Student</a>
 
                   </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" id="remember" class="form-check-input" name="remember" <?php if(isset($_COOKIE["user_login"])) { ?> checked <?php } ?> /> Keep me signed in </label>
-                    </div>
-                    <a href="forgot-password.php" class="auth-link text-black">Forgot password?</a>
+        
                   </div>
          <!--          <div class="mb-2">
                     <a href="../index.php" class="btn btn-block btn-facebook auth-form-btn">
