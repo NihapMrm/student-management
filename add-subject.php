@@ -7,24 +7,16 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
   } else{
    if(isset($_POST['submit']))
   {
- $stuname=$_POST['stuname'];
- $stuemail=$_POST['stuemail'];
- $stuclass=$_POST['stuclass'];
- $gender=$_POST['gender'];
- $dob=$_POST['dob'];
- $stuid=$_POST['stuid'];
- $fname=$_POST['fname'];
- $mname=$_POST['mname'];
- $connum=$_POST['connum'];
- $altconnum=$_POST['altconnum'];
- $address=$_POST['address'];
- $uname=$_POST['uname'];
- $password=md5($_POST['password']);
- $image=$_FILES["image"]["name"];
- $ret="select UserName from tblstudent where UserName=:uname || StuID=:stuid";
+ $stuname=$_POST['subname'];
+ $gender=$_POST['level'];
+ $gender=$_POST['medium'];
+ $gender=$_POST['type'];
+ $stuid=$_POST['subid'];
+
+ $ret="select UserName from tblsubject where SubjectName=:subname || SubID=:subid";
  $query= $dbh -> prepare($ret);
-$query->bindParam(':uname',$uname,PDO::PARAM_STR);
-$query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
+$query->bindParam(':subame',$subname,PDO::PARAM_STR);
+$query->bindParam(':subid',$subid,PDO::PARAM_STR);
 $query-> execute();
      $results = $query -> fetchAll(PDO::FETCH_OBJ);
 if($query -> rowCount() == 0)
@@ -39,7 +31,7 @@ else
 {
 $image=md5($image).time().$extension;
  move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$image);
-$sql="insert into tblstudent(StudentName,StudentEmail,StudentClass,Gender,DOB,StuID,FatherName,MotherName,ContactNumber,AltenateNumber,Address,UserName,Password,Image)values(:stuname,:stuemail,:stuclass,:gender,:dob,:stuid,:fname,:mname,:connum,:altconnum,:address,:uname,:password,:image)";
+$sql="insert into tblsubject(tblsubject.SubjectName,,tblsubject.Level,tblsubject.SubID,tblsubject.Medium,tblsubject.Type )values(:subname,:level,:subid,:medium,:type)";
 $query=$dbh->prepare($sql);
 $query->bindParam(':stuname',$stuname,PDO::PARAM_STR);
 $query->bindParam(':stuemail',$stuemail,PDO::PARAM_STR);
@@ -116,7 +108,7 @@ echo "<script>alert('Username or Student Id  already exist. Please try again');<
                           <option value="">Select Class</option>
                          <?php 
 
-$sql2 = "SELECT * from    tblclass ";
+$sql2 = "SELECT * from    tblsubject ";
 $query2 = $dbh -> prepare($sql2);
 $query2->execute();
 $result2=$query2->fetchAll(PDO::FETCH_OBJ);
@@ -124,9 +116,18 @@ $result2=$query2->fetchAll(PDO::FETCH_OBJ);
 foreach($result2 as $row1)
 {          
     ?>  
-<option value="<?php echo htmlentities($row1->ID);?>"><?php echo htmlentities($row1->ClassName);?> <?php echo htmlentities($row1->Section);?></option>
+<option value="<?php echo htmlentities($row1->ID);?>"><?php echo htmlentities($row1->SubjectName);?> <?php echo htmlentities($row1->Level);?></option>
  <?php } ?> 
                         </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="exampleInputName1">Level</label>
+                        <select name="gender" value="" class="form-control" required='true'>
+                          <option value="">Choose Level </option>
+                          <option value="Male">Ordinary Level</option>
+                          <option value="Female">Secondary Level</option>
+                          <option value="Female">Adavend Level</option>
+                           </select>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Gender</label>
@@ -134,53 +135,27 @@ foreach($result2 as $row1)
                           <option value="">Choose Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
-                        </select>
+                          <option value="Female">Female</option>
+                           </select>
                       </div>
                       <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Date of Birth</label>
-                        <input type="date" name="dob" value="" class="form-control" required='true'>
+                        <label for="exampleInputName1">Type</label>
+                        <select name="gender" value  class ass="form-control" required='true'>
+                          <option value="">Choose Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Female">Female</option>
+                           </select>
                       </div>
+                     
                      
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Student ID</label>
                         <input type="text" name="stuid" value="" class="form-control" required='true'>
                       </div>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Student Photo</label>
-                        <input type="file" name="image" value="" class="form-control" required='true'>
-                      </div>
-                      <h3 class="col-md-12">Parents/Guardian's details</h3>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Father's Name</label>
-                        <input type="text" name="fname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Mother's Name</label>
-                        <input type="text" name="mname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Contact Number</label>
-                        <input type="text" name="connum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Alternate Contact Number</label>
-                        <input type="text" name="altconnum" value="" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                      </div>
-                      <div class="form-group col-md-12">
-                        <label for="exampleInputName1">Address</label>
-                        <textarea name="address" class="form-control"></textarea>
-                      </div>
-                    <h3 class="col-md-12">Login details</h3>
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputName1">User Name</label>
-                        <input type="text" name="uname" value="" class="form-control" required='true'>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="exampleInputName1">Password</label>
-                        <input type="Password" name="password" value="" class="form-control" required='true'>
-                      </div>
-                      <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
                      
+                     
+                    
                     </form>
                   </div>
                 </div>
