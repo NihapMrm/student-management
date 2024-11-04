@@ -56,8 +56,7 @@
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                 <?php if ($_SESSION['user_type'] === 'admin'): ?>
-
-                  <li class="nav-item"> <a class="nav-link" href="add-class.php">Add Class</a></li>
+                 <li class="nav-item"> <a class="nav-link" href="add-class.php">Add Class</a></li>
                   <?php endif; ?>
 
                   <li class="nav-item"> <a class="nav-link" href="manage-class.php">Manage Class</a></li>
@@ -65,6 +64,24 @@
               </div>
             </li>
             <?php endif; ?>
+            <?php if ($_SESSION['user_type'] === 'admin'): ?>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#ui-subject" aria-expanded="false" aria-controls="ui-basic">
+    <i class="icon-layers menu-icon"></i>
+    <span class="menu-title">Subject</span>
+  </a>
+  <div class="collapse" id="ui-subject">
+    <ul class="nav flex-column sub-menu">
+    
+     <li class="nav-item"> <a class="nav-link" href="add-subject.php">Add Subject</a></li>
+     
+
+      <li class="nav-item"> <a class="nav-link" href="manage-subject.php">Manage Subject </a></li>
+    </ul>
+  </div>
+</li>
+<?php endif; ?>
 
             <?php if ($_SESSION['user_type'] !== 'student'): ?>
             <li class="nav-item">
