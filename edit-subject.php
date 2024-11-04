@@ -7,15 +7,14 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
   } else{
    if(isset($_POST['submit']))
   {
- $stuname=$_POST['subname'];
- $gender=$_POST['level'];
+ $subname=$_POST['subname'];
+ $level=$_POST['level'];
+ $medium=$_POST['medium'];
+ $type=$_POST['type'];
+ $subid=$_POST['subid'];
 
- $gender=$_POST['medium'];
- $gender=$_POST['type'];
 
-
-
-$sql="update tblstudent set StudentName=:tblsubject.SubjectName,,tblsubject.Level,tblsubject.SubID,tblsubject.Medium,tblsubject.Type";
+$sql="update tblsubject set :sub_name=subname,:Level=level,:Medium=medium,:Type=type,:sub_id=subid";
 $query=$dbh->prepare($sql);
 $query->bindParam(':subname',$subname,PDO::PARAM_STR);
 $query->bindParam(':level',$level,PDO::PARAM_STR);
@@ -26,11 +25,11 @@ $query->bindParam(':subid',$subid,PDO::PARAM_STR);
  $query->execute();
   echo '<script>alert("Subject has been updated")</script>';
 }
-
+  }
   ?>
 
    
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
@@ -58,7 +57,7 @@ $query->bindParam(':subid',$subid,PDO::PARAM_STR);
                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                       <?php
 $eid=$_GET['editid'];
-$sql="SELECT tblsubject.SubjectName,,tblsubject.Level,tblsubject.SubID,tblsubject.Medium,tblsubject.Type ";
+$sql="SELECT * from tblsubject where sub_id=:eid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':eid',$eid,PDO::PARAM_STR);
 $query->execute();
@@ -70,7 +69,7 @@ foreach($results as $row)
 {               ?>
                       <div class="form-group">
                         <label for="exampleInputName1">Subject Name</label>
-                        <input type="text" name="subname" value="<?php  echo htmlentities($row->SubjectName);?>" class="form-control" required='true'>
+                        <input type="text" name="subname" value="<?php  echo htmlentities($row->subname);?>" class="form-control" required='true'>
                       </div>
 
                          <?php 
@@ -81,7 +80,8 @@ $query2->execute();
 $result2=$query2->fetchAll(PDO::FETCH_OBJ);
 
 foreach($result2 as $row1)
-{          
+{ 
+          
     ?>  
 <option value="<?php echo htmlentities($row1->SubjectName);?><?php echo htmlentities($row1->Level);?>"><?php echo htmlentities($row1->SubjectName);?> <?php echo htmlentities($row1->Level);?></option>
  <?php } ?> 
