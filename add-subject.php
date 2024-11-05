@@ -60,7 +60,7 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Add Students </h3>
+              <h3 class="page-title"> Add Teachers </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
@@ -93,16 +93,16 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
                         <select name="level" value="" class="form-control" required='true'>
                           <option value="">Choose Level </option>
                           <option value="ordinary">Ordinary Level</option>
-                          <option value="Secondary">Secondary Level</option>
+                          <option value="secondary">Secondary Level</option>
                           <option value="advance">Adavend Level</option>
                            </select>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="exampleInputName1">Medium</label>
                         <select name="medium" value="" class="form-control" required='true'>
-                          <option value="Both">Both</option>
+                          <option value="both">Both</option>
                           <option value="tamil">Tamil</option>
-                          <option value="English">Engish</option>
+                          <option value="english">Engish</option>
                           
                            </select>
                       </div>
