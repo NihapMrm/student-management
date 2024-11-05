@@ -135,4 +135,4 @@ foreach($result2 as $row1)
       
     </div>
     
-   <?php }  ?>
+   <?php }}  ?>
