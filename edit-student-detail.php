@@ -55,13 +55,13 @@ if (!empty($_FILES['image']['name'])) {
   ?>
 
    
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -184,14 +184,14 @@ foreach($result2 as $row1)
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
    <?php }  ?>

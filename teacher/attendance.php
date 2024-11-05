@@ -10,13 +10,13 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
 
 ?>
 
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('../includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
         <?php include_once('../includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
              <div class="page-header">
@@ -39,7 +39,7 @@ $results = $query->fetchAll();
 
 ?>
 <div class="d-flex flex-row gap">
-<!-- Class dropdown -->
+
 <?php if ($results): ?>
     <select name='class' id='classSelect' class='form-control' onchange='loadSections(this.value)'>
         <option value=''>Select a Class</option>
@@ -53,7 +53,7 @@ $results = $query->fetchAll();
     <p>No classes to display.</p>
 <?php endif; ?>
 
-<!-- Section dropdown (initially empty) -->
+
 <select name="section" id="sectionSelect" class="form-control" onchange="loadStudents()">
     <option value="">Select a Section</option>
 </select>
@@ -61,7 +61,7 @@ $results = $query->fetchAll();
     <input type="date" id="attendanceDate" class="form-control" onchange="loadStudents()">
 
     </div>
-<!-- Div to display students -->
+
 <div id="studentList">
     
 </div>
@@ -150,14 +150,14 @@ function submitAttendance() {
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('../includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
     <?php }  ?>

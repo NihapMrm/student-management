@@ -7,13 +7,13 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
   }
   ?>
  
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -38,7 +38,7 @@ $results = $query->fetchAll();
 
 ?>
 <div class="d-flex flex-row gap">
-    <!-- Class dropdown -->
+    
     <?php if ($results): ?>
         <select name='class' id='classSelect' class='form-control' onchange='loadSections(this.value)'>
             <option value=''>Select a Class</option>
@@ -52,7 +52,7 @@ $results = $query->fetchAll();
         <p>No classes to display.</p>
     <?php endif; ?>
 
-    <!-- Section dropdown (initially empty) -->
+    
     <select name="section" id="sectionSelect" class="form-control" onchange="loadTimeTable()">
         <option value="">Select a Section</option>
     </select>
@@ -62,7 +62,7 @@ $results = $query->fetchAll();
         width: 400px;
     }
 </style>
-<!-- Image upload form -->
+
 <div id="timetableImageSection" style="display: none;">
 <div id="uploadedImage" class="pt-3"></div>
 <div class="d-flex w-100 justify-content-center align-items-center">
@@ -146,13 +146,13 @@ $results = $query->fetchAll();
 
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    

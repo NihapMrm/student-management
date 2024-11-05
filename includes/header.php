@@ -7,18 +7,18 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
   <head>
    
     <title>MLCK Student Management System|| Update About Us</title>
-    <!-- plugins:css -->
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
+    
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/chartist/chartist.min.css">
-    <!-- Plugin css for this page -->
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2/select2.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-    <!-- End plugin css for this page -->
+    
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/style.css" />
@@ -92,7 +92,7 @@ return true;
                                   <img class="img-md rounded-circle" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" width="60px" alt="Profile image">
                                   <div>
                                       <p class="mb-1 mt-3"><?php echo htmlentities($row->name ?? 'Guest'); ?></p>
-                                      <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email ?? 'No Email'); ?></p> <!-- Default value if email is null -->
+                                      <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email ?? 'No Email'); ?></p> 
                                   </div>
                               </div>
                               <a class="dropdown-item" href="profile.php"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile</a>

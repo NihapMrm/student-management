@@ -56,7 +56,7 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
       <div class="container-fluid page-body-wrapper">
        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -135,14 +135,14 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
     <?php }  ?>

@@ -22,9 +22,8 @@ $_SESSION['user_type'] = 'admin';
 
 
   if(!empty($_POST["remember"])) {
-//COOKIES for username
 setcookie ("user_login",$_POST["username"],time()+ (10 * 365 * 24 * 60 * 60));
-//COOKIES for password
+
 setcookie ("userpassword",$_POST["password"],time()+ (10 * 365 * 24 * 60 * 60));
 } else {
 if(isset($_COOKIE["user_login"])) {
@@ -47,16 +46,16 @@ echo "<script>alert('Invalid Details');</script>";
   <head>
   
     <title>Edu Authorities Student Management System|| Login Page</title>
-    <!-- plugins:css -->
+    
     <link rel="stylesheet" href="assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
+    
+    
+    
+    
+    
+    
     <link rel="stylesheet" href="assets/css/style.css">
    <style>
      .content-wrapper{
@@ -95,29 +94,25 @@ echo "<script>alert('Invalid Details');</script>";
                   </div>
         
                   </div>
-         <!--          <div class="mb-2">
-                    <a href="../index.php" class="btn btn-block btn-facebook auth-form-btn">
-                      <i class="icon-social-home mr-2"></i>Back Home </a>
-                  </div> -->
-                  
+     
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+    
+    
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
+    
+    
+    
+    
     <script src="assets/js/off-canvas.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <!-- endinject -->
+    
   </body>
 </html>

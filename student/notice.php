@@ -8,13 +8,13 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
     // Code for deletion
 ?>
 
-<!-- partial:partials/_navbar.html -->
+
 <?php include_once('../includes/header.php'); ?>
-<!-- partial -->
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
+    
     <?php include_once('../includes/sidebar.php'); ?>
-    <!-- partial -->
+    
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -110,18 +110,18 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        
+        
         <?php include_once('../includes/footer.php'); ?>
-        <!-- partial -->
+        
     </div>
-    <!-- main-panel ends -->
+    
 </div>
-<!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller -->
 
-<!-- Bootstrap Modal for Viewing Notice -->
+</div>
+
+
+
 <div class="modal fade" id="viewNoticeModal" tabindex="-1" role="dialog" aria-labelledby="viewNoticeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

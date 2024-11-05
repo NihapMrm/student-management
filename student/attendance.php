@@ -14,7 +14,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : '';
 ?>
 
-<!-- HTML and PHP to display attendance records for the logged-in student -->
+
 <?php include_once('../includes/header.php'); ?>
 <div class="container-fluid page-body-wrapper">
     <?php include_once('../includes/sidebar.php'); ?>
@@ -30,7 +30,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </nav>
             </div>
             
-            <!-- Date filter form -->
+            
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="attendance.php">
@@ -47,7 +47,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </div>
             </div>
 
-            <!-- Display attendance records in a table format -->
+            
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="table-responsive">
