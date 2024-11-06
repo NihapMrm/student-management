@@ -2,10 +2,11 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
+}else {
     $year = '';
     $term = '';
     $stuid = '';
@@ -18,7 +19,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
         $term = $_POST['term'];
         $stuid = $_POST['stuid'];
 
-        // Fetch marks for the selected student, year, and term
+        
         $sql = "SELECT sub.sub_name, m.marks, s.StudentName, c.ClassName, c.Section 
                 FROM tblmarks m 
                 JOIN tblsubject sub ON m.subid = sub.sub_id 
@@ -32,7 +33,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
         $query->execute();
         $marks = $query->fetchAll(PDO::FETCH_ASSOC);
         
-        // Get student's name and class from the fetched data
+        
         if (!empty($marks)) {
             $studentName = htmlentities($marks[0]['StudentName']);
             $studentClass = htmlentities($marks[0]['ClassName'] . " " . $marks[0]['Section']);
@@ -155,7 +156,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
     const stuid = document.getElementById('stuid').value;
     const button = document.getElementById('viewMarksBtn');
 
-    // Enable the button only if all fields are filled
+    
     button.disabled = !(year && term && stuid);
 }
 </script>

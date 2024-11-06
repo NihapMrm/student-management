@@ -2,19 +2,20 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
-}
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }
 ?>
 
-<!-- partial:partials/_navbar.html -->
+
 <?php include_once('includes/header.php'); ?>
-<!-- partial -->
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
+    
     <?php include_once('includes/sidebar.php'); ?>
-    <!-- partial -->
+    
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -28,14 +29,14 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
             </div>
             <div>
                 <?php
-                // Query to load unique teacher names for the first dropdown
+                
                 $teachers = "SELECT * FROM tblteacher";
                 $query = $dbh->prepare($teachers);
                 $query->execute();
                 $results = $query->fetchAll();
                 ?>
                 <div class="d-flex flex-row gap">
-                    <!-- Teacher dropdown -->
+                    
                     <?php if ($results): ?>
                         <select name='teacher' id='teacherSelect' class='form-control' onchange='loadTimeTable()'>
                             <option value=''>Select a Teacher</option>
@@ -54,7 +55,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                         width: 400px;
                     }
                 </style>
-                <!-- Image upload form -->
+                
                 <div id="timetableImageSection" style="display: none;">
                     <div id="uploadedImage" class="pt-3"></div>
                     <div class="d-flex w-100 justify-content-center align-items-center">
@@ -111,13 +112,13 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                 </script>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        
+        
         <?php include_once('includes/footer.php'); ?>
-        <!-- partial -->
+        
     </div>
-    <!-- main-panel ends -->
+    
 </div>
-<!-- page-body-wrapper ends -->
+
 </div>
-<!-- container-scroller -->
+

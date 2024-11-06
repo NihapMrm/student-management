@@ -2,16 +2,14 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-// Check if the user is logged in
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
-    echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-    exit();
-} else {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else {
     $eid = $_GET['viewid'];
 
-    // Fetch student details based on ID
+    
     $sql = "SELECT tblstudent.StudentName, tblstudent.StudentEmail, tblstudent.StudentClass, tblstudent.Gender, tblstudent.DOB, 
             tblstudent.StuID, tblstudent.FatherName, tblstudent.MotherName, tblstudent.ContactNumber, tblstudent.AltenateNumber, 
             tblstudent.Address, tblstudent.Image, tblclass.ClassName, tblclass.Section 
@@ -24,15 +22,15 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     $result = $query->fetch(PDO::FETCH_OBJ);
 
     if ($result) {
-        // Display the student details
+        
         ?>
-        <!-- partial:partials/_navbar.html -->
+        
         <?php include_once('../includes/header.php'); ?>
-        <!-- partial -->
+        
         <div class="container-fluid page-body-wrapper">
-            <!-- partial:partials/_sidebar.html -->
+            
             <?php include_once('../includes/sidebar.php'); ?>
-            <!-- partial -->
+            
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
@@ -111,14 +109,14 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
                         </div>
                     </div>
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
+                
+                
                 <?php include_once('../includes/footer.php'); ?>
-                <!-- partial -->
+                
             </div>
-            <!-- main-panel ends -->
+            
         </div>
-        <!-- page-body-wrapper ends -->
+        
         <?php
     } else {
         echo '<h3>No record found!</h3>';

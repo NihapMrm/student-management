@@ -2,19 +2,20 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
 } else {
-    // Code for deletion
 ?>
 
-<!-- partial:partials/_navbar.html -->
+
 <?php include_once('../includes/header.php'); ?>
-<!-- partial -->
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
+    
     <?php include_once('../includes/sidebar.php'); ?>
-    <!-- partial -->
+    
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -47,7 +48,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                                         } else {
                                             $pageno = 1;
                                         }
-                                        // Formula for pagination
+                                        
                                         $no_of_records_per_page = 15;
                                         $offset = ($pageno - 1) * $no_of_records_per_page;
                                         $ret = "SELECT ID FROM tblpublicnotice";
@@ -110,18 +111,18 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        
+        
         <?php include_once('../includes/footer.php'); ?>
-        <!-- partial -->
+        
     </div>
-    <!-- main-panel ends -->
+    
 </div>
-<!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller -->
 
-<!-- Bootstrap Modal for Viewing Notice -->
+</div>
+
+
+
 <div class="modal fade" id="viewNoticeModal" tabindex="-1" role="dialog" aria-labelledby="viewNoticeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -145,7 +146,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
         $('.view-notice').on('click', function() {
             var noticeId = $(this).data('id');
             $.ajax({
-                url: 'get_notice.php', // Endpoint to fetch notice details
+                url: 'get_notice.php', 
                 method: 'GET',
                 data: { id: noticeId },
                 success: function(response) {

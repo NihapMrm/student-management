@@ -1,10 +1,17 @@
 <?php
-include('includes/dbconnection.php');
+session_start();
+error_reporting(0);
+include('/includes/dbconnection.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }
 
 if (isset($_GET['classid'])) {
     $classid = intval($_GET['classid']);
 
-    // Get the class name from tblclass
+    
     $sqlClass = "SELECT ClassName FROM tblclass WHERE ID = :classid";
     $queryClass = $dbh->prepare($sqlClass);
     $queryClass->bindParam(':classid', $classid, PDO::PARAM_INT);
@@ -12,7 +19,7 @@ if (isset($_GET['classid'])) {
     $class = $queryClass->fetch(PDO::FETCH_OBJ);
 
     if ($class) {
-        // Determine the level based on the class name
+        
         $className = $class->ClassName;
         $level = '';
 
@@ -27,14 +34,14 @@ if (isset($_GET['classid'])) {
             }
         }
 
-        // Fetch subjects based on the determined level
+        
         $sqlSubjects = "SELECT * FROM tblsubject WHERE Level = :level";
         $querySubjects = $dbh->prepare($sqlSubjects);
         $querySubjects->bindParam(':level', $level, PDO::PARAM_STR);
         $querySubjects->execute();
         $subjects = $querySubjects->fetchAll(PDO::FETCH_OBJ);
 
-        // Generate the options for the subject select
+        
         foreach ($subjects as $subject) {
             echo "<option value='" . htmlentities($subject->sub_id) . "'>" . htmlentities($subject->sub_name) . "</option>";
         }

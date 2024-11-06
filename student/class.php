@@ -1,23 +1,21 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0) || $_SESSION['user_type'] !== 'student') {
-    header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
 }
 ?>
 
-<!-- partial:partials/_navbar.html -->
+
 <?php include_once('../includes/header.php'); ?>
-<!-- partial -->
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
+    
     <?php include_once('../includes/sidebar.php'); ?>
-    <!-- partial -->
+    
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -32,7 +30,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0) || $_SESSION['user_type'] !== 'student
             <div>
                 <?php
                 $studentId = $_SESSION['sturecmsaid'];
-                // Query to get the ClassID from the student's record
+                
                 $sql = "SELECT StudentClass FROM tblstudent WHERE ID = :studentId";
                 $query = $dbh->prepare($sql);
                 $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
@@ -41,7 +39,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0) || $_SESSION['user_type'] !== 'student
 
                 if ($result) {
                     $classId = $result['StudentClass'];
-                    // Now, get the class name and section using the ClassID
+                    
                     $classSql = "SELECT ClassName, Section FROM tblclass WHERE ID = :classId";
                     $classQuery = $dbh->prepare($classSql);
                     $classQuery->bindParam(':classId', $classId, PDO::PARAM_INT);
@@ -55,7 +53,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0) || $_SESSION['user_type'] !== 'student
                                 <h1>" . htmlspecialchars($className) . " - " . htmlspecialchars($section) . "</h1>
                               </div><br><br>";
                         
-                        // Query to get all students in the same class
+                        
                         $studentsSql = "SELECT StudentName, StuID FROM tblstudent WHERE StudentClass = :classId";
                         $studentsQuery = $dbh->prepare($studentsSql);
                         $studentsQuery->bindParam(':classId', $classId, PDO::PARAM_INT);
@@ -90,13 +88,13 @@ if (strlen($_SESSION['sturecmsaid'] == 0) || $_SESSION['user_type'] !== 'student
                 ?>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        
+        
         <?php include_once('../includes/footer.php'); ?>
-        <!-- partial -->
+        
     </div>
-    <!-- main-panel ends -->
+    
 </div>
-<!-- page-body-wrapper ends -->
+
 </div>
-<!-- container-scroller -->
+

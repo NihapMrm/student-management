@@ -1,12 +1,12 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(0);
 include('includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid']) == 0) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else {
     if (isset($_POST['submit'])) {
         $stuname = $_POST['stuname'];
         $stuemail = $_POST['stuemail'];
@@ -37,7 +37,7 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
             $randomName = uniqid() . '.' . $extension;
             $targetFile = $targetDir . $randomName;
 
-            // Move the uploaded file
+            
             if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                 $sql = "INSERT INTO tblstudent (StudentName, StudentEmail, StudentClass, Gender, DOB, StuID, FatherName, MotherName, ContactNumber, AltenateNumber, Address, UserName, Password, Image) VALUES (:stuname, :stuemail, :stuclass, :gender, :dob, :stuid, :fname, :mname, :connum, :altconnum, :address, :uname, :password, :image)";
                 $query = $dbh->prepare($sql);
@@ -73,13 +73,13 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
     }
 ?>
 
-<!-- partial:partials/_navbar.html -->
+
 <?php include_once('includes/header.php'); ?>
-<!-- partial -->
+
 <div class="container-fluid page-body-wrapper">
-    <!-- partial:partials/_sidebar.html -->
+    
     <?php include_once('includes/sidebar.php'); ?>
-    <!-- partial -->
+    
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -176,14 +176,14 @@ if (strlen($_SESSION['sturecmsaid']) == 0) {
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+        
+        
         <?php include_once('includes/footer.php'); ?>
-        <!-- partial -->
+        
     </div>
-    <!-- main-panel ends -->
+    
 </div>
-<!-- page-body-wrapper ends -->
+
 </div>
-<!-- container-scroller -->
+
 <?php } ?>

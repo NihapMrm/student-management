@@ -1,13 +1,12 @@
 <?php
-
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
-    echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-    exit();
-} else{
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else{
     $teacherId = $_SESSION['sturecmsaid'];
     $sql = "SELECT username FROM tblteacher WHERE id = :id";
 $query = $dbh->prepare($sql);
@@ -17,13 +16,13 @@ $teacher = $query->fetch(PDO::FETCH_OBJ);
 
   ?> 
 
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('../includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
         <?php include_once('../includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
@@ -110,14 +109,14 @@ $totpublicnotice=$query4->rowCount();
            
             
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('../includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -142,6 +141,6 @@ $totpublicnotice=$query4->rowCount();
         chart.draw(data, options);
       }
     </script>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+    
+    
    <?php }  ?>

@@ -2,10 +2,11 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }else {
     if (isset($_POST['submit'])) {
         $year = $_POST['year'];
         $term = $_POST['term'];
@@ -14,7 +15,7 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
         $marks = $_POST['marks'];
         $stuid = $_POST['stuid'];
 
-        // Loop through each student and insert marks
+        
         for ($i = 0; $i < count($stuid); $i++) {
             $sql = "INSERT INTO tblmarks (year, term, subid, classid, stuid, marks) VALUES (:year, :term, :subid, :classid, :stuid, :marks)";
             $query = $dbh->prepare($sql);
@@ -112,18 +113,18 @@ if (strlen($_SESSION['sturecmsaid'] == 0)) {
 
 <script>
 function fetchStudents(classid) {
-    var year = document.querySelector('select[name="year"]').value; // Get the selected year
-    var term = document.querySelector('select[name="term"]').value; // Get the selected term
+    var year = document.querySelector('select[name="year"]').value; 
+    var term = document.querySelector('select[name="term"]').value; 
 
-    // Check if any value is empty
+    
     if (classid === "" || year === "" || term === "") {
-        document.getElementById("students-container").innerHTML = ""; // Clear students container
-        document.getElementById("subid").innerHTML = "<option value=''>Select Subject</option>"; // Clear subjects
-        document.getElementById("addMarksBtn").disabled = true; // Disable button
-        return; // Exit function if any required field is not selected
+        document.getElementById("students-container").innerHTML = ""; 
+        document.getElementById("subid").innerHTML = "<option value=''>Select Subject</option>"; 
+        document.getElementById("addMarksBtn").disabled = true; 
+        return; 
     }
 
-    // Fetch students for the selected class
+    
     var xhrStudents = new XMLHttpRequest();
     xhrStudents.open("GET", "fetch-students.php?classid=" + classid + "&year=" + year + "&term=" + term, true);
     xhrStudents.onreadystatechange = function () {
@@ -132,17 +133,17 @@ function fetchStudents(classid) {
             document.getElementById("students-container").innerHTML = response;
          
 
-            // Check if no students were found
+            
             if (response.trim() === "<p>No students found for this class.</p>") {
-                document.getElementById("addMarksBtn").disabled = true; // Disable button if no students
+                document.getElementById("addMarksBtn").disabled = true; 
             } else {
-                document.getElementById("addMarksBtn").disabled = false; // Enable button if students are found
+                document.getElementById("addMarksBtn").disabled = false; 
             }
         }
     };
     xhrStudents.send();
 
-    // Fetch subjects based on selected class level
+    
     var xhrSubjects = new XMLHttpRequest();
     xhrSubjects.open("GET", "fetch-subjects.php?classid=" + classid, true);
     xhrSubjects.onreadystatechange = function () {
@@ -157,10 +158,10 @@ function checkFields() {
     const year = document.getElementById('year').value;
     const term = document.getElementById('term').value;
     const classid = document.getElementById('classid').value;
-    const subject = document.getElementById('subid').value; // Corrected this line to refer to 'subid'
+    const subject = document.getElementById('subid').value; 
     const button = document.getElementById('addMarksBtn');
 
-    // Enable the button only if all fields are filled
+    
     button.disabled = !(year && term && classid && subject);
 }
 </script>

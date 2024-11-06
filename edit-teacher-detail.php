@@ -2,8 +2,10 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
   } else{
    if(isset($_POST['submit']))
   {
@@ -22,11 +24,11 @@ if (strlen($_SESSION['sturecmsaid']==0)) {
   $randomName = uniqid() . '.' . strtolower(pathinfo($image, PATHINFO_EXTENSION));
   $targetFile = $targetDir . $randomName;
 
-  // Move the uploaded file
+  
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
   $sql = "UPDATE tblteacher SET id=:trid, name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address, image=:image WHERE id=:eid";
 } else {
-    // If no new image, just update other fields
+    
     $sql = "UPDATE tblteacher SET id=:trid, name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address WHERE id=:eid";
   }
 $query=$dbh->prepare($sql);
@@ -49,13 +51,13 @@ if (!empty($_FILES['image']['name'])) {
   ?>
 
    
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -168,14 +170,14 @@ foreach($results as $row)
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
    <?php }  ?>

@@ -3,20 +3,20 @@ session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
-  echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
-  echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-  exit();
-  } else{
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
+}else{
 
 ?>
 
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('../includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
         <?php include_once('../includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
              <div class="page-header">
@@ -52,7 +52,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
         } else {
             $pageno = 1;
         }
-        // Formula for pagination
+        
         $no_of_records_per_page = 15;
         $offset = ($pageno-1) * $no_of_records_per_page;
        $ret = "SELECT id FROM tblteacher";
@@ -101,13 +101,13 @@ foreach($results as $row)
             </div>
           </div>
          
-          <!-- partial:partials/_footer.html -->
+          
          <?php include_once('../includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
    <?php }  ?>

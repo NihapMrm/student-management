@@ -1,9 +1,16 @@
 <?php
 
+session_start();
+error_reporting(0);
 include('includes/dbconnection.php');
-
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }
+  
 if (isset($_GET['className']) && !isset($_GET['sectionName'])) {
-    // Load sections based on the selected class name
+    
     $className = $_GET['className'];
     $sections = "SELECT Section FROM tblclass WHERE ClassName = :className ORDER BY Section ASC";
     $query = $dbh->prepare($sections);
@@ -24,7 +31,7 @@ if (isset($_GET['className']) && !isset($_GET['sectionName'])) {
 }
 
 if (isset($_GET['className']) && isset($_GET['sectionName'])) {
-    // Find ClassID based on class name and section
+    
     $className = $_GET['className'];
     $sectionName = $_GET['sectionName'];
 
@@ -38,7 +45,7 @@ if (isset($_GET['className']) && isset($_GET['sectionName'])) {
     if ($class) {
         $classID = $class['ID'];
 
-        // Check if a timetable image exists for the ClassID
+        
         $sql = "SELECT ImagePath FROM tbltimetable WHERE ClassID = :classID";
         $query = $dbh->prepare($sql);
         $query->bindParam(':classID', $classID, PDO::PARAM_INT);
@@ -57,7 +64,7 @@ if (isset($_GET['className']) && isset($_GET['sectionName'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && isset($_POST['classID'])) {
-    // Handle image upload
+    
     $classID = $_POST['classID'];
     $targetDir = "assets/uploads/StTimeTables/";
     $randomName = uniqid() . '.' . strtolower(pathinfo($_FILES['timetableImage']['name'], PATHINFO_EXTENSION));
@@ -87,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && 
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteImage'])) {
-    // Handle image deletion
+    
     $classID = $_POST['classID'];
 
     $sql = "DELETE FROM tbltimetable WHERE ClassID = :classID";
@@ -95,18 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteImage'])) {
     $query->bindParam(':classID', $classID, PDO::PARAM_INT);
     $query->execute();
 
-    // Optionally, delete the file from the server
-    // unlink($result['ImagePath']);
+    
+    
     echo "Image deleted.";
     exit();
 }
 
 
 if (isset($_GET['teacherId'])) {
-    // Find Teacher ID and handle timetable operations
+    
     $teacherId = $_GET['teacherId'];
     
-    // Check if a timetable image exists for the Teacher ID
+    
     $sql = "SELECT ImagePath FROM tbltrtimetable WHERE TeacherId = :teacherId";
     $query = $dbh->prepare($sql);
     $query->bindParam(':teacherId', $teacherId, PDO::PARAM_INT);
@@ -122,7 +129,7 @@ if (isset($_GET['teacherId'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && isset($_POST['teacherId'])) {
-    // Handle image upload
+    
     $teacherId = $_POST['teacherId'];
     $targetDir = "assets/uploads/TrTimeTables/";
     $randomName = uniqid() . '.' . strtolower(pathinfo($_FILES['timetableImage']['name'], PATHINFO_EXTENSION));
@@ -148,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['timetableImage']) && 
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteImage'])) {
-    // Handle image deletion
+    
     $teacherId = $_POST['teacherId'];
     $sql = "DELETE FROM tbltrtimetable WHERE TeacherId = :teacherId";
     $query = $dbh->prepare($sql);

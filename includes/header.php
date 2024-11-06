@@ -1,5 +1,5 @@
 <?php
-// Define the base URL for your project
+
 $base_url = 'http://localhost/royalsgrid/Student management system/'; 
 ?>
 <!DOCTYPE html>
@@ -7,19 +7,19 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
   <head>
    
     <title>MLCK Student Management System|| Update About Us</title>
-    <!-- plugins:css -->
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
+    
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/chartist/chartist.min.css">
-    <!-- Plugin css for this page -->
+    
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2/select2.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-    <!-- End plugin css for this page -->
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+  
   
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/style.css" />
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
@@ -84,7 +84,7 @@ return true;
                           <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                               <img class="img-xs rounded-circle ml-2" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" alt="Profile image">
                               <span class="font-weight-normal">
-                                  <?php echo htmlentities($row->name ?? 'Guest'); // Default value if name is null ?>
+                                  <?php echo htmlentities($row->name ?? 'Guest'); ?>
                               </span>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -92,7 +92,7 @@ return true;
                                   <img class="img-md rounded-circle" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" width="60px" alt="Profile image">
                                   <div>
                                       <p class="mb-1 mt-3"><?php echo htmlentities($row->name ?? 'Guest'); ?></p>
-                                      <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email ?? 'No Email'); ?></p> <!-- Default value if email is null -->
+                                      <p class="font-weight-light text-muted mb-0"><?php echo htmlentities($row->email ?? 'No Email'); ?></p> 
                                   </div>
                               </div>
                               <a class="dropdown-item" href="profile.php"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile</a>

@@ -2,11 +2,9 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-// Check if the user is logged in as a student
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
     exit();
 } else {
     $studentId = $_SESSION['sturecmsaid'];
@@ -14,7 +12,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : '';
 ?>
 
-<!-- HTML and PHP to display attendance records for the logged-in student -->
+
 <?php include_once('../includes/header.php'); ?>
 <div class="container-fluid page-body-wrapper">
     <?php include_once('../includes/sidebar.php'); ?>
@@ -30,7 +28,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </nav>
             </div>
             
-            <!-- Date filter form -->
+            
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="attendance.php">
@@ -47,7 +45,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </div>
             </div>
 
-            <!-- Display attendance records in a table format -->
+            
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -62,13 +60,13 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                             </thead>
                             <tbody>
                                 <?php
-                                // Query to get attendance records for the logged-in student with optional date filter
+                                
                                 $sql = "SELECT a.AttendanceDate, c.ClassName, c.Section, a.Status 
                                         FROM tblattendance AS a
                                         JOIN tblclass AS c ON a.ClassID = c.ID
                                         WHERE a.StudentID = :studentId";
 
-                                // Add date filter to the query if dates are selected
+                                
                                 if (!empty($startDate) && !empty($endDate)) {
                                     $sql .= " AND a.AttendanceDate BETWEEN :startDate AND :endDate";
                                 }
@@ -77,7 +75,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
                                 
-                                // Bind date parameters if they are set
+                                
                                 if (!empty($startDate) && !empty($endDate)) {
                                     $query->bindParam(':startDate', $startDate);
                                     $query->bindParam(':endDate', $endDate);
@@ -86,7 +84,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_ASSOC);
                                 
-                                // Check if there are any attendance records
+                                
                                 if ($results) {
                                     foreach ($results as $record) {
                                         echo "<tr>
