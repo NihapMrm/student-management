@@ -9,7 +9,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
   } else {
     $eid = $_GET['viewid'];
 
-    // Fetch student details based on ID
+    
     $sql = "SELECT tblstudent.StudentName, tblstudent.StudentEmail, tblstudent.StudentClass, tblstudent.Gender, tblstudent.DOB, 
             tblstudent.StuID, tblstudent.FatherName, tblstudent.MotherName, tblstudent.ContactNumber, tblstudent.AltenateNumber, 
             tblstudent.Address, tblstudent.Image, tblclass.ClassName, tblclass.Section 
@@ -22,7 +22,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     $result = $query->fetch(PDO::FETCH_OBJ);
 
     if ($result) {
-        // Display the student details
+        
         ?>
         
         <?php include_once('../includes/header.php'); ?>

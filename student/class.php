@@ -30,7 +30,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
             <div>
                 <?php
                 $studentId = $_SESSION['sturecmsaid'];
-                // Query to get the ClassID from the student's record
+                
                 $sql = "SELECT StudentClass FROM tblstudent WHERE ID = :studentId";
                 $query = $dbh->prepare($sql);
                 $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
@@ -39,7 +39,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
 
                 if ($result) {
                     $classId = $result['StudentClass'];
-                    // Now, get the class name and section using the ClassID
+                    
                     $classSql = "SELECT ClassName, Section FROM tblclass WHERE ID = :classId";
                     $classQuery = $dbh->prepare($classSql);
                     $classQuery->bindParam(':classId', $classId, PDO::PARAM_INT);
@@ -53,7 +53,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                 <h1>" . htmlspecialchars($className) . " - " . htmlspecialchars($section) . "</h1>
                               </div><br><br>";
                         
-                        // Query to get all students in the same class
+                        
                         $studentsSql = "SELECT StudentName, StuID FROM tblstudent WHERE StudentClass = :classId";
                         $studentsQuery = $dbh->prepare($studentsSql);
                         $studentsQuery->bindParam(':classId', $classId, PDO::PARAM_INT);

@@ -7,11 +7,11 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
   echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
   exit();
   } else {
-    // Get the class ID from the AJAX request
+    
     $classid = intval($_GET['classid']);
-    $year = intval($_GET['year']); // Assuming the year is passed via AJAX too
-    $term = $_GET['term']; // Assuming the term is passed via AJAX too
-    $subid = intval($_GET['subid']); // Assuming the subject ID is passed via AJAX too
+    $year = intval($_GET['year']); 
+    $term = $_GET['term']; 
+    $subid = intval($_GET['subid']); 
 
     $sql = "SELECT s.StuID, s.StudentName, m.marks 
             FROM tblstudent s 

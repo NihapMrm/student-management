@@ -8,18 +8,18 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
   exit();
   }
 
-// Handle class and section selection to load sections based on class
+
 if (isset($_GET['className']) && !isset($_GET['section'])) {
     $className = $_GET['className'];
 
-    // Query to get sections based on the selected class name
+    
     $sections = "SELECT Section FROM tblclass WHERE ClassName = :className ORDER BY Section ASC";
     $query = $dbh->prepare($sections);
     $query->bindParam(':className', $className, PDO::PARAM_STR);
     $query->execute();
     $results = $query->fetchAll();
 
-    // Output the sections for the selected class
+    
     if ($results) {
         foreach ($results as $section) {
             echo "<option value='" . htmlspecialchars($section['Section']) . "'>" 
@@ -29,7 +29,7 @@ if (isset($_GET['className']) && !isset($_GET['section'])) {
     } else {
         echo "<option value=''>No sections available</option>";
     }
-    exit(); // End script execution after outputting the sections
+    exit(); 
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date = $data['date'];
         $attendanceData = $data['attendance'];
 
-        // Debug: Log received data
+        
 
 
-        // Query to get ClassID based on selected ClassName and Section
+        
         $classIdQuery = "SELECT ID FROM tblclass WHERE ClassName = :className AND Section = :section";
         $query = $dbh->prepare($classIdQuery);
         $query->bindParam(':className', $className, PDO::PARAM_STR);
@@ -57,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $classID = $class['ID'];
             
 
-            // Loop through each student's attendance data
+            
             foreach ($attendanceData as $studentId => $status) {
-                // Verify StudentID exists in tblstudent
+                
                 $studentCheckQuery = "SELECT ID FROM tblstudent WHERE ID = :studentId";
                 $studentCheck = $dbh->prepare($studentCheckQuery);
                 $studentCheck->bindParam(':studentId', $studentId, PDO::PARAM_INT);
@@ -68,9 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               
                 if ($studentExists) {
              
-                    // Insert or update attendance records in the database
+                    
                     $attendanceQuery = "INSERT INTO tblattendance (StudentID, ClassID, AttendanceDate, Status) VALUES (:studentId, :classID, :date, :status)
-                                        ON DUPLICATE KEY UPDATE Status = :status"; // Assuming StudentID, ClassID, and AttendanceDate are unique together
+                                        ON DUPLICATE KEY UPDATE Status = :status"; 
                     
                     $query = $dbh->prepare($attendanceQuery);
                     $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
@@ -93,20 +93,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p>Invalid data received.</p>";
     }
-    exit(); // End script execution after processing attendance
+    exit(); 
 }
 
 
 
 
 
-// Handle fetching students based on selected class, section, and date
+
 if (isset($_GET['className']) && isset($_GET['section']) && isset($_GET['date'])) {
     $className = $_GET['className'];
     $section = $_GET['section'];
     $date = $_GET['date'];
 
-    // Query to get ClassID based on selected ClassName and Section
+    
     $classIdQuery = "SELECT ID FROM tblclass WHERE ClassName = :className AND Section = :section";
     
     $query = $dbh->prepare($classIdQuery);
@@ -116,7 +116,7 @@ if (isset($_GET['className']) && isset($_GET['section']) && isset($_GET['date'])
     $class = $query->fetch(PDO::FETCH_ASSOC);
    
     if ($class) {
-        // Now use ClassID to get students
+        
         $classID = $class['ID'];
         $studentsQuery = "SELECT ID, StudentName FROM tblstudent WHERE StudentClass = :ID";
         
@@ -125,7 +125,7 @@ if (isset($_GET['className']) && isset($_GET['section']) && isset($_GET['date'])
         $query->execute();
         $students = $query->fetchAll();
 
-        // Output the students for the selected class and section with radio buttons for attendance
+        
         if ($students) {
            
 
@@ -160,10 +160,10 @@ if (isset($_GET['className']) && isset($_GET['section']) && isset($_GET['date'])
     } else {
         echo "<p>Class not found.</p>";
     }
-    exit(); // End script execution after outputting the students
+    exit(); 
 }
 
-// Query to load unique class names for the first dropdown
+
 $classes = "SELECT DISTINCT ClassName FROM tblclass";
 $query = $dbh->prepare($classes);
 $query->execute();

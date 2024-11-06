@@ -52,7 +52,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
         } else {
             $pageno = 1;
         }
-        // Formula for pagination
+        
         $no_of_records_per_page = 15;
         $offset = ($pageno-1) * $no_of_records_per_page;
        $ret = "SELECT id FROM tblteacher";

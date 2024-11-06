@@ -27,11 +27,11 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
   $randomName = uniqid() . '.' . strtolower(pathinfo($image, PATHINFO_EXTENSION));
   $targetFile = $targetDir . $randomName;
 
-  // Move the uploaded file
+  
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
   $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, Gender=:gender, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address, Image=:image WHERE ID=:eid";
 } else {
-    // If no new image, just update other fields
+    
     $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, Gender=:gender, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address WHERE ID=:eid";
 }
 $query=$dbh->prepare($sql);

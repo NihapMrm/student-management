@@ -1,7 +1,7 @@
 
 
 <?php
-// Define the base URL for your project
+
 $base_url = 'http://localhost/royalsgrid/Student management system/'; 
 ?>
     <script src="<?php echo $base_url; ?>assets/vendors/js/vendor.bundle.base.js"></script>

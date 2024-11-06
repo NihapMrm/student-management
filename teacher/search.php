@@ -73,7 +73,7 @@ $sdata=$_POST['searchdata'];
         } else {
             $pageno = 1;
         }
-        // Formula for pagination
+        
         $no_of_records_per_page = 5;
         $offset = ($pageno-1) * $no_of_records_per_page;
        $ret = "SELECT ID FROM tblstudent";

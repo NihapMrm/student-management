@@ -32,7 +32,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
 
 
 
-// Query to load unique class names for the first dropdown
+
 $classes = "SELECT DISTINCT ClassName FROM tblclass";
 $query = $dbh->prepare($classes);
 $query->execute();

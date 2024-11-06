@@ -60,13 +60,13 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                             </thead>
                             <tbody>
                                 <?php
-                                // Query to get attendance records for the logged-in student with optional date filter
+                                
                                 $sql = "SELECT a.AttendanceDate, c.ClassName, c.Section, a.Status 
                                         FROM tblattendance AS a
                                         JOIN tblclass AS c ON a.ClassID = c.ID
                                         WHERE a.StudentID = :studentId";
 
-                                // Add date filter to the query if dates are selected
+                                
                                 if (!empty($startDate) && !empty($endDate)) {
                                     $sql .= " AND a.AttendanceDate BETWEEN :startDate AND :endDate";
                                 }
@@ -75,7 +75,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
                                 
-                                // Bind date parameters if they are set
+                                
                                 if (!empty($startDate) && !empty($endDate)) {
                                     $query->bindParam(':startDate', $startDate);
                                     $query->bindParam(':endDate', $endDate);
@@ -84,7 +84,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_ASSOC);
                                 
-                                // Check if there are any attendance records
+                                
                                 if ($results) {
                                     foreach ($results as $record) {
                                         echo "<tr>

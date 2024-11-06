@@ -48,7 +48,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                                         } else {
                                             $pageno = 1;
                                         }
-                                        // Formula for pagination
+                                        
                                         $no_of_records_per_page = 15;
                                         $offset = ($pageno - 1) * $no_of_records_per_page;
                                         $ret = "SELECT ID FROM tblpublicnotice";
@@ -146,7 +146,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
         $('.view-notice').on('click', function() {
             var noticeId = $(this).data('id');
             $.ajax({
-                url: 'get_notice.php', // Endpoint to fetch notice details
+                url: 'get_notice.php', 
                 method: 'GET',
                 data: { id: noticeId },
                 success: function(response) {

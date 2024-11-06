@@ -29,7 +29,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
             </div>
             <div>
                 <?php
-                // Query to load unique teacher names for the first dropdown
+                
                 $teachers = "SELECT * FROM tblteacher";
                 $query = $dbh->prepare($teachers);
                 $query->execute();

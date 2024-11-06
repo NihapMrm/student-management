@@ -19,7 +19,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
         $term = $_POST['term'];
         $stuid = $_POST['stuid'];
 
-        // Fetch marks for the selected student, year, and term
+        
         $sql = "SELECT sub.sub_name, m.marks, s.StudentName, c.ClassName, c.Section 
                 FROM tblmarks m 
                 JOIN tblsubject sub ON m.subid = sub.sub_id 
@@ -33,7 +33,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
         $query->execute();
         $marks = $query->fetchAll(PDO::FETCH_ASSOC);
         
-        // Get student's name and class from the fetched data
+        
         if (!empty($marks)) {
             $studentName = htmlentities($marks[0]['StudentName']);
             $studentClass = htmlentities($marks[0]['ClassName'] . " " . $marks[0]['Section']);
@@ -156,7 +156,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     const stuid = document.getElementById('stuid').value;
     const button = document.getElementById('viewMarksBtn');
 
-    // Enable the button only if all fields are filled
+    
     button.disabled = !(year && term && stuid);
 }
 </script>

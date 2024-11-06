@@ -37,7 +37,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
             $randomName = uniqid() . '.' . $extension;
             $targetFile = $targetDir . $randomName;
 
-            // Move the uploaded file
+            
             if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                 $sql = "INSERT INTO tblstudent (StudentName, StudentEmail, StudentClass, Gender, DOB, StuID, FatherName, MotherName, ContactNumber, AltenateNumber, Address, UserName, Password, Image) VALUES (:stuname, :stuemail, :stuclass, :gender, :dob, :stuid, :fname, :mname, :connum, :altconnum, :address, :uname, :password, :image)";
                 $query = $dbh->prepare($sql);

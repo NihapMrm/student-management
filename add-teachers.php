@@ -33,7 +33,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
             $randomName = uniqid() . '.' . $extension;
             $targetFile = $targetDir . $randomName;
 
-            // Move the uploaded file
+            
             if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                 $sql = "INSERT INTO tblteacher (id, name, email, gender, dob, sub_id, mobile_number, address, username, password, image) VALUES (:trid, :trname, :tremail, :gender, :dob, :subid, :connum, :address, :uname, :password, :image)";
                 $query = $dbh->prepare($sql);

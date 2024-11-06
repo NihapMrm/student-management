@@ -7,7 +7,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
   echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
   exit();
   } else{
-   // Code for deletion
+   
 if(isset($_GET['delid']))
 {
 $rid=intval($_GET['delid']);
@@ -66,7 +66,7 @@ $query->execute();
         } else {
             $pageno = 1;
         }
-        // Formula for pagination
+        
         $no_of_records_per_page =15;
         $offset = ($pageno-1) * $no_of_records_per_page;
        $ret = "SELECT ID FROM tblpublicnotice";

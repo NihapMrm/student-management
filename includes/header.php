@@ -1,5 +1,5 @@
 <?php
-// Define the base URL for your project
+
 $base_url = 'http://localhost/royalsgrid/Student management system/'; 
 ?>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2/select2.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
     
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
   
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/style.css" />
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
@@ -84,7 +84,7 @@ return true;
                           <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                               <img class="img-xs rounded-circle ml-2" src="<?php echo $base_url; ?>assets/images/faces/face8.jpg" alt="Profile image">
                               <span class="font-weight-normal">
-                                  <?php echo htmlentities($row->name ?? 'Guest'); // Default value if name is null ?>
+                                  <?php echo htmlentities($row->name ?? 'Guest'); ?>
                               </span>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
