@@ -4,9 +4,9 @@ error_reporting(0);
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
   echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-  echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
   exit();
-  } else{
+  }else{
 
 ?>
 

@@ -1,12 +1,12 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(0);
 include('includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid']) == 0) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }else {
     if (isset($_POST['submit'])) {
         $trid = $_POST['trid'];
         $trname = $_POST['trname'];

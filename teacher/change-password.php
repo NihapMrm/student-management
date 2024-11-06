@@ -2,9 +2,10 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-error_reporting(0);
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
   } else{
 if(isset($_POST['submit']))
 {

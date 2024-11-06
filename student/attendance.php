@@ -2,11 +2,9 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-// Check if the user is logged in as a student
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
     exit();
 } else {
     $studentId = $_SESSION['sturecmsaid'];

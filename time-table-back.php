@@ -1,7 +1,14 @@
 <?php
 
+session_start();
+error_reporting(0);
 include('includes/dbconnection.php');
-
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  }
+  
 if (isset($_GET['className']) && !isset($_GET['sectionName'])) {
     // Load sections based on the selected class name
     $className = $_GET['className'];

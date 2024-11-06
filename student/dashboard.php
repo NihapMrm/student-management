@@ -1,14 +1,10 @@
 <?php
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
     echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
     exit();
 } else{
     $studentId = $_SESSION['sturecmsaid'];

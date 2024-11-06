@@ -1,13 +1,12 @@
 <?php
-
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('../includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
-    echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-    exit();
-} else{
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else{
     $teacherId = $_SESSION['sturecmsaid'];
     $sql = "SELECT username FROM tblteacher WHERE id = :id";
 $query = $dbh->prepare($sql);

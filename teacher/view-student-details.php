@@ -2,13 +2,11 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-// Check if the user is logged in
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
-    echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
-    echo "<script type='text/javascript'> document.location ='index.php'; </script>";
-    exit();
-} else {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else {
     $eid = $_GET['viewid'];
 
     // Fetch student details based on ID

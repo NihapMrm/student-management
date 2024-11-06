@@ -2,10 +2,11 @@
 session_start();
 error_reporting(0);
 include('../includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
+}else {
     $year = '';
     $term = '';
     $stuid = '';

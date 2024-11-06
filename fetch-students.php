@@ -2,10 +2,11 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-
-if (strlen($_SESSION['sturecmsaid'] == 0)) {
-    header('location:logout.php');
-} else {
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
+  } else {
     // Get the class ID from the AJAX request
     $classid = intval($_GET['classid']);
     $year = intval($_GET['year']); // Assuming the year is passed via AJAX too
