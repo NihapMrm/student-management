@@ -37,7 +37,9 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     $results = $query->fetch(PDO::FETCH_ASSOC);
     ?>
     <div class="d-flex flex-row gap">
-        
+    <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
         <?php if ($results && !empty($results['ImagePath'])): ?>
             <div id="uploadedImage" class="pt-3">
                 <img src="../<?php echo htmlspecialchars($results['ImagePath']); ?>" alt="Timetable Image">
@@ -46,9 +48,10 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
             <p>No timetable image to display.</p>
         <?php endif; ?>
     </div>
+    </div></div>
     <style>
         #uploadedImage img {
-            width: 400px;
+            width: 100%;
         }
     </style>
     

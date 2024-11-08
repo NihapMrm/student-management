@@ -31,6 +31,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
             
             <div class="card">
                 <div class="card-body">
+                <h1 class="text-center pb-4">Attendance</h1>
                     <form method="POST" action="attendance.php">
                         <div class="form-group">
                             <label for="startDate">Start Date:</label>
@@ -50,7 +51,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered">
-                            <thead>
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Date</th>
                                     <th>Class</th>

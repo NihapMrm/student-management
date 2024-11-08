@@ -28,6 +28,9 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </nav>
             </div>
             <div>
+            <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
                 <?php
                 $studentId = $_SESSION['sturecmsaid'];
                 
@@ -61,8 +64,8 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                         $students = $studentsQuery->fetchAll(PDO::FETCH_ASSOC);
                         
                         if ($students) {
-                            echo "<table class='table table-striped'>
-                                    <thead>
+                            echo "<table class='table table-bordered'>
+                                    <thead class='thead-light'>
                                         <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
@@ -87,6 +90,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 }
                 ?>
             </div>
+            </div></div></div>
         </div>
         
         

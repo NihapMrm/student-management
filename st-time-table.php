@@ -39,6 +39,9 @@ $query->execute();
 $results = $query->fetchAll();
 
 ?>
+ <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
 <div class="d-flex flex-row gap">
     
     <?php if ($results): ?>
@@ -59,12 +62,6 @@ $results = $query->fetchAll();
         <option value="">Select a Section</option>
     </select>
 </div>
-<style>
-    #uploadedImage img{
-        width: 400px;
-    }
-</style>
-
 <div id="timetableImageSection" style="display: none;">
 <div id="uploadedImage" class="pt-3"></div>
 <div class="d-flex w-100 justify-content-center align-items-center">
@@ -77,6 +74,14 @@ $results = $query->fetchAll();
     
    
 </div>
+
+</div></div></div>
+<style>
+    #uploadedImage img{
+        width: 400px;
+    }
+</style>
+
 
 <script>
     function loadSections(className) {

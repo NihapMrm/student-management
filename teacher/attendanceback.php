@@ -130,7 +130,7 @@ if (isset($_GET['className']) && isset($_GET['section']) && isset($_GET['date'])
            
 
             echo "<br><br>";
-            echo "<table class='table table-striped table-bordered'><thead><tr><th>Student Name</th><th>Attendance</th></tr></thead><tbody>";
+            echo "<table class='table table-bordered'><thead class='thead-light'><tr><th>Student Name</th><th>Attendance</th></tr></thead><tbody>";
             foreach ($students as $student) {
                 $studentID = $student['ID'];
                 $studentName = htmlspecialchars($student['StudentName']);

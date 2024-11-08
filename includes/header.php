@@ -60,7 +60,7 @@ return true;
          $aid= $_SESSION['sturecmsaid'];
 
          if ($_SESSION['user_type'] == 'admin') {
-          $sql = "SELECT * from tbladmin where ID=:aid";
+          $sql = "SELECT name, Email as email from tbladmin where ID=:aid";
       } elseif ($_SESSION['user_type'] == 'teacher') {
           $sql = "SELECT * from tblteacher where ID=:aid";
       } elseif ($_SESSION['user_type'] == 'student') {

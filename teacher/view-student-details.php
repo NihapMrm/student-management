@@ -51,53 +51,53 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
 
                                     <div class="form-group">
                                         <label>Student Name:</label>
-                                        <p><?php echo htmlentities($result->StudentName); ?></p>
+                                        <p><?php echo htmlentities($result->StudentName) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Student Email:</label>
-                                        <p><?php echo htmlentities($result->StudentEmail); ?></p>
+                                        <p><?php echo htmlentities($result->StudentEmail) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Student Class:</label>
-                                        <p><?php echo htmlentities($result->ClassName . ' ' . $result->Section); ?></p>
+                                        <p><?php echo htmlentities($result->ClassName . ' ' . $result->Section) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Gender:</label>
-                                        <p><?php echo htmlentities($result->Gender); ?></p>
+                                        <p><?php echo htmlentities($result->Gender) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Date of Birth:</label>
-                                        <p><?php echo htmlentities($result->DOB); ?></p>
+                                        <p><?php echo htmlentities($result->DOB) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Student ID:</label>
-                                        <p><?php echo htmlentities($result->StuID); ?></p>
+                                        <p><?php echo htmlentities($result->StuID) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Student Photo:</label><br>
-                                        <img src="../assets/images/<?php echo htmlentities($result->Image); ?>" width="100" height="100">
+                                        <img src="../<?php echo !empty($result->Image) ? htmlentities($result->Image) : 'assets/images/default.webp'; ?>" width="100" height="100">
                                     </div>
 
                                     <h3>Parents/Guardian's details</h3>
                                     <div class="form-group">
                                         <label>Father's Name:</label>
-                                        <p><?php echo htmlentities($result->FatherName); ?></p>
+                                        <p><?php echo htmlentities($result->FatherName) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Mother's Name:</label>
-                                        <p><?php echo htmlentities($result->MotherName); ?></p>
+                                        <p><?php echo htmlentities($result->MotherName) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Contact Number:</label>
-                                        <p><?php echo htmlentities($result->ContactNumber); ?></p>
+                                        <p><?php echo htmlentities($result->ContactNumber) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Alternate Contact Number:</label>
-                                        <p><?php echo htmlentities($result->AltenateNumber); ?></p>
+                                        <p><?php echo htmlentities($result->AltenateNumber) ?: '-'; ?></p>
                                     </div>
                                     <div class="form-group">
                                         <label>Address:</label>
-                                        <p><?php echo htmlentities($result->Address); ?></p>
+                                        <p><?php echo htmlentities($result->Address) ?: '-'; ?></p>
                                     </div>
 
                                    
