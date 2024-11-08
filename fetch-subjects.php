@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('/includes/dbconnection.php');
+include('includes/dbconnection.php');
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
   echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
   echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
@@ -41,7 +41,7 @@ if (isset($_GET['classid'])) {
         $querySubjects->execute();
         $subjects = $querySubjects->fetchAll(PDO::FETCH_OBJ);
 
-        
+        echo "<option value=''>Select Subject</option>";
         foreach ($subjects as $subject) {
             echo "<option value='" . htmlentities($subject->sub_id) . "'>" . htmlentities($subject->sub_name) . "</option>";
         }

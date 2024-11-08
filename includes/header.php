@@ -14,7 +14,6 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
     
     
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/chartist/chartist.min.css">
     
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2/select2.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">

@@ -11,10 +11,8 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
     <script src="<?php echo $base_url; ?>assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
     
     
-    <script src="<?php echo $base_url; ?>assets/vendors/chart.js/Chart.min.js"></script>
     <script src="<?php echo $base_url; ?>assets/vendors/moment/moment.min.js"></script>
     <script src="<?php echo $base_url; ?>assets/vendors/daterangepicker/daterangepicker.js"></script>
-    <script src="<?php echo $base_url; ?>assets/vendors/chartist/chartist.min.js"></script>
 
     <script src="<?php echo $base_url; ?>assets/js/off-canvas.js"></script>
     <script src="<?php echo $base_url; ?>assets/js/bootstrap.min.js"></script>
@@ -22,7 +20,6 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
     
     <script src="<?php echo $base_url; ?>assets/js/typeahead.js"></script>
     <script src="<?php echo $base_url; ?>assets/js/select2.js"></script>
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     
     <script>
