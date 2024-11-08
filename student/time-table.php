@@ -13,9 +13,9 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
 <?php include_once('../includes/header.php'); ?>
 
 <div class="container-fluid page-body-wrapper">
-    
+
     <?php include_once('../includes/sidebar.php'); ?>
-    
+
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -28,48 +28,55 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 </nav>
             </div>
             <div>
-    <?php
-   $studentId = $_SESSION['sturecmsaid'];
-   $sql = "SELECT StudentClass FROM tblstudent WHERE ID = :studentId";
-   $query = $dbh->prepare($sql);
-   $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
-   $query->execute();
-   $result = $query->fetch(PDO::FETCH_ASSOC);
+                <?php
+                $studentId = $_SESSION['sturecmsaid'];
+                $sql = "SELECT StudentClass FROM tblstudent WHERE ID = :studentId";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':studentId', $studentId, PDO::PARAM_INT);
+                $query->execute();
+                $result = $query->fetch(PDO::FETCH_ASSOC);
 
-   if ($result) {
-       $classId = $result['StudentClass'];}
-       $timetableSql = "SELECT ImagePath FROM tbltimetable WHERE ClassId = :classId";
-       $timetableQuery = $dbh->prepare($timetableSql);
-       $timetableQuery->bindParam(':classId', $classId, PDO::PARAM_INT);
-       $timetableQuery->execute();
-       $timetableResult = $timetableQuery->fetch(PDO::FETCH_ASSOC);
-    ?>
-    <div class="d-flex flex-row gap">
-        
-        <?php if ($timetableResult && !empty($timetableResult['ImagePath'])): ?>
-            <div id="uploadedImage" class="pt-3">
-                <img src="../<?php echo htmlspecialchars($timetableResult['ImagePath']); ?>" alt="Timetable Image">
+                if ($result) {
+                    $classId = $result['StudentClass'];
+                }
+                $timetableSql = "SELECT ImagePath FROM tbltimetable WHERE ClassId = :classId";
+                $timetableQuery = $dbh->prepare($timetableSql);
+                $timetableQuery->bindParam(':classId', $classId, PDO::PARAM_INT);
+                $timetableQuery->execute();
+                $timetableResult = $timetableQuery->fetch(PDO::FETCH_ASSOC);
+                ?>
+<div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  <h1 class="text-center pb-4">Time Table</h1>
+
+                <div class="d-flex flex-row gap">
+
+                    <?php if ($timetableResult && !empty($timetableResult['ImagePath'])): ?>
+                        <div id="uploadedImage" class="pt-3">
+                            <img src="../<?php echo htmlspecialchars($timetableResult['ImagePath']); ?>"
+                                alt="Timetable Image">
+                        </div>
+                    <?php else: ?>
+                        <p>No timetable image to display.</p>
+                    <?php endif; ?>
+                </div>
+                </div></div></div>
+                <style>
+                    #uploadedImage img {
+                        width: 100%;
+                    }
+                </style>
+
             </div>
-        <?php else: ?>
-            <p>No timetable image to display.</p>
-        <?php endif; ?>
-    </div>
-    <style>
-        #uploadedImage img {
-            width: 400px;
-        }
-    </style>
-    
-</div>
 
         </div>
-        
-        
+
+
         <?php include_once('../includes/footer.php'); ?>
-        
+
     </div>
-    
-</div>
 
 </div>
 
+</div>

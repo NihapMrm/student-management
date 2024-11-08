@@ -32,13 +32,9 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Manage Class</h4>
-                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Classes</a>
-                    </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
-                        <thead>
+                        <thead class="thead-light">
                           <tr>
                             <th class="font-weight-bold">S.No</th>
                             <th class="font-weight-bold">Class Name</th>

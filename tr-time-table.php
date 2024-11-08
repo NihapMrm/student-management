@@ -35,6 +35,9 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
                 $query->execute();
                 $results = $query->fetchAll();
                 ?>
+                 <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
                 <div class="d-flex flex-row gap">
                     
                     <?php if ($results): ?>
@@ -65,7 +68,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
                             <button type="button" onclick="uploadImage()" class="btn btn-primary">Upload</button>
                         </form>
                     </div>
-                </div>
+                </div></div></div></div>
                 <script>
                     function loadTimeTable() {
                         var teacherId = document.getElementById('teacherSelect').value;

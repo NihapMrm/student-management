@@ -60,6 +60,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                        <h1 class="text-center pb-4">Results</h1>
                         <form class="forms-sample" method="post" oninput="checkFields()">
     <div class="form-group">
         <label for="year">Year</label>

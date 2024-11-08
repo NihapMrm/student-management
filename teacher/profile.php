@@ -13,7 +13,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
     $TName=$_POST['teachername'];
   $mobno=$_POST['mobilenumber'];
   $email=$_POST['email'];
-  $sql="update tblteacher set name=:name,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
+  $sql="update tblteacher set name=:name,mobile_number=:mobilenumber,email=:email where ID=:aid";
      $query = $dbh->prepare($sql);
      $query->bindParam(':name',$TName,PDO::PARAM_STR);
      $query->bindParam(':email',$email,PDO::PARAM_STR);
@@ -37,11 +37,11 @@ $query->execute();
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Teacher Profile </h3>
+              <h3 class="page-title"> Profile </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Teacher Profile</li>
+                  <li class="breadcrumb-item active" aria-current="page">Profile</li>
                 </ol>
               </nav>
             </div>
@@ -50,7 +50,7 @@ $query->execute();
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Teacher Profile</h4>
+                    <h4 class="card-title" style="text-align: center;">Profile</h4>
                    
                     <form class="forms-sample" method="post">
                       <?php
@@ -74,15 +74,15 @@ foreach($results as $row)
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword4">Contact Number</label>
-                        <input type="text" name="mobilenumber" value="<?php  echo $row->MobileNumber;?>"  class="form-control" maxlength='10' required='true' pattern="[0-9]+">
+                        <input type="text" name="mobilenumber" value="<?php  echo $row->mobile_number;?>"  class="form-control" maxlength='10' required='true' pattern="[0-9]+">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputCity1">Email</label>
-                         <input type="email" name="email" value="<?php  echo $row->Email;?>" class="form-control" required='true'>
+                         <input type="email" name="email" value="<?php  echo $row->email;?>" class="form-control" required='true'>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputCity1">Admin Registration Date</label>
-                         <input type="text" name="" value="<?php  echo $row->AdminRegdate;?>" readonly="" class="form-control">
+                         <input type="text" name="" value="<?php  echo $row->RegDate;?>" readonly="" class="form-control">
                       </div><?php $cnt=$cnt+1;}} ?> 
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Update</button>
                      

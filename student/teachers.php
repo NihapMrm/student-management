@@ -32,7 +32,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-              
+              <h1 class="text-center pb-4">Teachers</h1>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
                         <thead>

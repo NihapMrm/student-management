@@ -109,7 +109,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
 </div>
 
                                 <table class="table table-bordered">
-                                    <thead>
+                                    <thead class="thead-light">
                                         <tr>
                                             <th>Subject Name</th>
                                             <th>Marks</th>
