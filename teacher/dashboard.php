@@ -6,108 +6,61 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'teacher') {
   echo "<script>alert('You are not authorized to access this page. Please log in as a teacher.');</script>";
   echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
   exit();
-  } else{
-    $teacherId = $_SESSION['sturecmsaid'];
-    $sql = "SELECT username FROM tblteacher WHERE id = :id";
-$query = $dbh->prepare($sql);
-$query->bindParam(':id', $teacherId, PDO::PARAM_INT);
-$query->execute();
-$teacher = $query->fetch(PDO::FETCH_OBJ);
+  }
+  ?>
 
-  ?> 
-
+   
       
      <?php include_once('../includes/header.php');?>
       
       <div class="container-fluid page-body-wrapper">
         
-        <?php include_once('../includes/sidebar.php');?>
-        
+      <?php include_once('../includes/sidebar.php');?>
+      <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/dashboard.css" />
+
         <div class="main-panel">
           <div class="content-wrapper">
+           
             <div class="row">
-              <div class="col-md-12 grid-margin">
+          
+              <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="d-sm-flex align-items-baseline report-summary-header">
-                          <h5 class="font-weight-semibold">Report Summary</h5> <span class="ml-auto">Updated Report</span> <button class="btn btn-icons border-0 p-2"><i class="icon-refresh"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row ">
-                      <div class=" col-md-6 report-inner-cards-wrapper">
-                        <div class="report-inner-card color-1">
-                        <div class="inner-card-text text-white">
-                           <?php 
-                        $sql1 ="SELECT * from  tblclass";
-$query1 = $dbh -> prepare($sql1);
-$query1->execute();
-$results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$totclass=$query1->rowCount();
-?>
-                          <span class="report-title">Total Class</span>
-                          <h4><?php echo htmlentities($totclass);?></h4>
-                          <a href="manage-class.php"><span class="report-count"> View Classes</span></a>
-                        </div>
-                        <div class="inner-card-icon">
-                          <i class="icon-rocket"></i>
-                        </div>
-                      </div>
-                    </div>
-                      <div class="col-md-6 report-inner-cards-wrapper">
-                        <div class="report-inner-card color-2">
-                        <div class="inner-card-text text-white">
-                          <?php 
-                        $sql2 ="SELECT * from  tblstudent";
-$query2 = $dbh -> prepare($sql2);
-$query2->execute();
-$results2=$query2->fetchAll(PDO::FETCH_OBJ);
-$totstu=$query2->rowCount();
-?>
-                          <span class="report-title">Total Students</span>
-                          <h4><?php echo htmlentities($totstu);?></h4>
-                          <a href="manage-students.php"><span class="report-count"> View Students</span></a>
-                        </div>
-                        <div class="inner-card-icon ">
-                          <i class="icon-user"></i>
-                        </div>
-                      </div>
-                    </div>
-                     
-                    </div>
-                      <div class="col-md-6 report-inner-cards-wrapper">
-                        <div class="report-inner-card color-4">
-                        <div class="inner-card-text text-white">
-                          <?php 
-                        $sql4 ="SELECT * from  tblpublicnotice";
-$query4 = $dbh -> prepare($sql4);
-$query4->execute();
-$results4=$query4->fetchAll(PDO::FETCH_OBJ);
-$totpublicnotice=$query4->rowCount();
-?>
-                          <span class="report-title">Total Public Notice</span>
-                          <h4><?php echo htmlentities($totpublicnotice);?></h4>
-                          <a href="manage-public-notice.php"><span class="report-count"> View PublicNotices</span></a>
-                        </div>
-                        <div class="inner-card-icon">
-                          <i class="icon-doc"></i>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div id="piechart" style="width: 100%; height: 500px;"></div>
-                      </div>
-                    </div>
+                  <div class="banner d-flex flex-column flex-md-row justify-content-around align-items-center">
+  <div class="w-100 align-items-center justify-content-center d-flex flex-column text-center p-4 order-2 order-md-1">
+    <h3>Vision</h3>
+    <p>To create a peaceful, disciplined, and respectful environment that promotes good character, knowledge, and respect towards others.</p>
+  </div>
+  
+  <div class="w-100 align-items-center justify-content-center d-flex order-1 order-md-2 mb-3 mb-md-0">
+    <img src="<?php echo $base_url; ?>assets/images/logo-icon.png" alt="">
+  </div>
+  
+  <div class="w-100 align-items-center justify-content-center d-flex flex-column text-center p-4 order-3">
+    <h3>Mission</h3>
+    <p>To provide high-quality education that nurtures students with ethical values, discipline, and a sense of responsibility, helping them to become useful and respectable members of society.</p>
+  </div>
+</div>
+
+                    <h2 class="text-center p-4">Gallery</h2>                
+                    <div class="container">
+              <div class="masonry-grid">
+                <?php for ($i = 0; $i <= 10; $i++): ?>
+                  <div class="masonry-item">
+                    <img src="<?php echo $base_url; ?>assets/images/gallery-<?php echo $i; ?>.jpg" class="img-fluid" alt="Gallery Image <?php echo $i; ?>">
+                  </div>
+                <?php endfor; ?>
+              </div>
+            </div>
                   </div>
                 </div>
               </div>
+            
             </div>
            
-            
+
+
+
           </div>
           
           
@@ -118,29 +71,4 @@ $totpublicnotice=$query4->rowCount();
       </div>
       
     </div>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Total Class',     4],
-          ['Total Students',      10],
-          ['Total Class Notice',  2],
-          ['Total Public Notice', 2]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
     
-    
-   <?php }  ?>

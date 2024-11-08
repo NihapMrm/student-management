@@ -45,10 +45,6 @@ $query->execute();
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Manage Subjects</h4>
-                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Subjects</a>
-                    </div>
                     <div class="table-responsive border rounded p-1">
                       <table class="table">
                         <thead>

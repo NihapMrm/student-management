@@ -46,7 +46,6 @@ $query->execute();
                   <div class="card-body">
                     <form method="post">
                                 <div class="form-group">
-                                   <strong>Search Student:</strong>
                                    
                                     <input id="searchdata" type="text" name="searchdata" required="true" class="form-control" placeholder="Search by Student ID"></div>
                                

@@ -83,11 +83,11 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Add Students </h3>
+                <h3 class="page-title"> Add Student </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Add Students</li>
+                        <li class="breadcrumb-item active" aria-current="page"> Add Student</li>
                     </ol>
                 </nav>
             </div>

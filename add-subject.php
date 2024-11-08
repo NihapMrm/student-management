@@ -62,7 +62,7 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Add Teachers </h3>
+              <h3 class="page-title"> Add Subject </h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>

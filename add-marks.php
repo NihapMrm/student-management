@@ -93,7 +93,7 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
 
                                 <div class="form-group">
                                     <label for="subid">Subject</label>
-                                    <select name="subid" id="subid" class="form-control" required>
+                                    <select name="subid" id="subid" class="form-control" required onchange="fetchStudents(document.getElementById('classid').value)">
                                         <option value="">Select Subject</option>
                                     </select>
                                 </div>
@@ -113,46 +113,48 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
 
 <script>
 function fetchStudents(classid) {
-    var year = document.querySelector('select[name="year"]').value; 
-    var term = document.querySelector('select[name="term"]').value; 
+    var year = document.querySelector('select[name="year"]').value;
+    var term = document.querySelector('select[name="term"]').value;
+    var subid = document.querySelector('select[name="subid"]').value;
 
-    
     if (classid === "" || year === "" || term === "") {
-        document.getElementById("students-container").innerHTML = ""; 
-        document.getElementById("subid").innerHTML = "<option value=''>Select Subject</option>"; 
-        document.getElementById("addMarksBtn").disabled = true; 
-        return; 
+        document.getElementById("students-container").innerHTML = "";
+        document.getElementById("subid").innerHTML = "<option value=''>Select Subject</option>";
+        document.getElementById("addMarksBtn").disabled = true;
+        return;
     }
 
-    
-    var xhrStudents = new XMLHttpRequest();
-    xhrStudents.open("GET", "fetch-students.php?classid=" + classid + "&year=" + year + "&term=" + term, true);
+    if (classid !== document.getElementById('classid').getAttribute('data-last-classid')) {
+        var xhrSubjects = new XMLHttpRequest();
+        xhrSubjects.open("GET", "fetch-subjects.php?classid=" + classid, true);
+        xhrSubjects.onreadystatechange = function () {
+            if (xhrSubjects.readyState == 4 && xhrSubjects.status == 200) {
+                document.getElementById("subid").innerHTML = xhrSubjects.responseText;
+                document.getElementById('classid').setAttribute('data-last-classid', classid);
+            }
+        };
+        xhrSubjects.send();
+    }
+    if (subid !== "") {
+        var xhrStudents = new XMLHttpRequest();
+    xhrStudents.open("GET", "fetch-students.php?classid=" + classid + "&year=" + year + "&term=" + term + "&subid=" + subid, true);
     xhrStudents.onreadystatechange = function () {
         if (xhrStudents.readyState == 4 && xhrStudents.status == 200) {
             const response = xhrStudents.responseText;
             document.getElementById("students-container").innerHTML = response;
-         
 
-            
             if (response.trim() === "<p>No students found for this class.</p>") {
-                document.getElementById("addMarksBtn").disabled = true; 
+                document.getElementById("addMarksBtn").disabled = true;
             } else {
-                document.getElementById("addMarksBtn").disabled = false; 
+                document.getElementById("addMarksBtn").disabled = false;
             }
         }
     };
     xhrStudents.send();
-
-    
-    var xhrSubjects = new XMLHttpRequest();
-    xhrSubjects.open("GET", "fetch-subjects.php?classid=" + classid, true);
-    xhrSubjects.onreadystatechange = function () {
-        if (xhrSubjects.readyState == 4 && xhrSubjects.status == 200) {
-            document.getElementById("subid").innerHTML = xhrSubjects.responseText;
-        }
-    };
-    xhrSubjects.send();
+    }
+ 
 }
+
 
 function checkFields() {
     const year = document.getElementById('year').value;
