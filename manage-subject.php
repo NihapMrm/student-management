@@ -96,7 +96,7 @@ foreach($results as $row)
                            
                             
                             <td>
-                             <a href="edit-subject-detail.php?editid=<?php echo htmlentities ($row->sub_id);?>" class="btn btn-primary btn-sm"><i class="icon-eye"></i></a>
+                             <a href="edit-subject.php?editid=<?php echo htmlentities ($row->sub_id);?>" class="btn btn-primary btn-sm"><i class="icon-eye"></i></a>
                                                  <a href="manage-subject.php?delid=<?php echo ($row->sub_id);?>" onclick="return confirm('Do you really want to Delete ?');" class="btn btn-danger btn-sm"> <i class="icon-trash"></i></a>
                             </td> 
                           </tr><?php $cnt=$cnt+1;}} ?>

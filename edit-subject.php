@@ -2,139 +2,118 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
+
 if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
-  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
-  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
-  exit();
-  } else{
-   if(isset($_POST['submit']))
-  {
- $subname=$_POST['subname'];
- $level=$_POST['level'];
- $medium=$_POST['medium'];
- $type=$_POST['type'];
- $subid=$_POST['subid'];
+    echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
+} else {
+    if (isset($_POST['submit'])) {
+        $sub_name = $_POST['sub_name'];
+        $level = $_POST['level'];
+        $medium = $_POST['medium'];
+        $type = $_POST['type'];
+        $subid = $_POST['subid'];
 
+        $sql = "UPDATE tblsubject SET sub_name = :sub_name, level = :level, medium = :medium, type = :type WHERE sub_id = :subid";
+        $query = $dbh->prepare($sql);
 
-$sql="update tblsubject set :sub_name=subname,:Level=level,:Medium=medium,:Type=type,:sub_id=subid";
-$query=$dbh->prepare($sql);
-$query->bindParam(':subname',$subname,PDO::PARAM_STR);
-$query->bindParam(':level',$level,PDO::PARAM_STR);
-$query->bindParam(':medium',$medium,PDO::PARAM_STR);
-$query->bindParam(':type',$type,PDO::PARAM_STR);
-$query->bindParam(':subid',$subid,PDO::PARAM_STR);
+        
+        $query->bindParam(':sub_name', $sub_name, PDO::PARAM_STR);
+        $query->bindParam(':level', $level, PDO::PARAM_STR);
+        $query->bindParam(':medium', $medium, PDO::PARAM_STR);
+        $query->bindParam(':type', $type, PDO::PARAM_STR);
+        $query->bindParam(':subid', $subid, PDO::PARAM_STR);
 
- $query->execute();
-  echo '<script>alert("Subject has been updated")</script>';
+        
+        $query->execute();
+        echo '<script>alert("Subject has been updated")</script>';
+    }
 }
-  }
-  ?>
+?>
 
-   
-      
-     <?php include_once('includes/header.php');?>
-      
-      <div class="container-fluid page-body-wrapper">
-        
-      <?php include_once('includes/sidebar.php');?>
-        
-        <div class="main-panel">
-          <div class="content-wrapper">
+<?php include_once('includes/header.php'); ?>
+
+<div class="container-fluid page-body-wrapper">
+    <?php include_once('includes/sidebar.php'); ?>
+
+    <div class="main-panel">
+        <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Update Subject </h3>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page"> Update subject</li>
-                </ol>
-              </nav>
+                <h3 class="page-title"> Update Subject </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update subject</li>
+                    </ol>
+                </nav>
             </div>
             <div class="row">
-          
-              <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Update Subject</h4>
-                   
-                    <form class="forms-sample" method="post" enctype="multipart/form-data">
-                      <?php
-$eid=$_GET['editid'];
-$sql="SELECT * from tblsubject where sub_id=:eid";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':eid',$eid,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Subject Name</label>
-                        <input type="text" name="subname" value="<?php  echo htmlentities($row->subname);?>" class="form-control" required='true'>
-                      </div>
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;">Update Subject</h4>
 
-                         <?php 
+                            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                                <?php
+                                $eid = $_GET['editid'];
+                                $sql = "SELECT * FROM tblsubject WHERE sub_id = :eid";
+                                $query = $dbh->prepare($sql);
+                                $query->bindParam(':eid', $eid, PDO::PARAM_STR);
+                                $query->execute();
+                                $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-$sql2 = "SELECT * from    tblsubject ";
-$query2 = $dbh -> prepare($sql2);
-$query2->execute();
-$result2=$query2->fetchAll(PDO::FETCH_OBJ);
+                                if ($query->rowCount() > 0) {
+                                    foreach ($results as $row) { ?>
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Subject Name</label>
+                                            <input type="text" name="sub_name" value="<?php echo htmlentities($row->sub_name); ?>"
+                                                class="form-control" required='true'>
+                                        </div>
 
-foreach($result2 as $row1)
-{ 
-          
-    ?>  
-<option value="<?php echo htmlentities($row1->SubjectName);?><?php echo htmlentities($row1->Level);?>"><?php echo htmlentities($row1->SubjectName);?> <?php echo htmlentities($row1->Level);?></option>
- <?php } ?> 
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Level</label>
-                        <select name="level" value="" class="form-control" required='true'>
-                          <option value="<?php  echo htmlentities($row->Level);?>"><?php  echo htmlentities($row->Level);?></option>
-                          <option value="ordinary">Ordinary Level</option>
-                          <option value="secondary">Secondary level</option>
-                          <option value="advance">Advance Level</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Medium</label>
-                        <select name="medium" value="" class="form-control" required='true'>
-                          <option value="<?php  echo htmlentities($row->Medium);?>"><?php  echo htmlentities($row->Medium);?></option>
-                          <option value="english">Engkish</option>
-                          <option value="tamil">Tamil</option>
-                          <option value="both">Both</option>
-                        </select>
-                      </div> <div class="form-group">
-                        <label for="exampleInputName1">Type</label>
-                        <select name="type" value="" class="form-control" required='true'>
-                          <option value="<?php  echo htmlentities($row->Type);?>"><?php  echo htmlentities($row->Type);?></option>
-                          <option value="compulsory">compulsory</option>
-                          <option value="b1">basket 1</option>
-                          <option value="b2">basket 2</option>
-                          <option value="b3">basket 3</option>
-                          
-                        </select>
-                      </div>
-                       <div class="form-group">
-                        <label for="exampleInputName1">Subject ID</label>
-                        <input type="text" name="stuid" value="<?php  echo htmlentities($row->StuID);?>" class="form-control" readonly='true'>
-                      </div>
-                    </form>
-                  </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Level</label>
+                                            <select name="level" class="form-control" required='true'>
+                                                <option value="ordinary" <?php echo ($row->level == 'ordinary') ? 'selected' : ''; ?>>Ordinary Level</option>
+                                                <option value="secondary" <?php echo ($row->level == 'secondary') ? 'selected' : ''; ?>>Secondary level</option>
+                                                <option value="advance" <?php echo ($row->level == 'advance') ? 'selected' : ''; ?>>Advance Level</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Medium</label>
+                                            <select name="medium" class="form-control" required='true'>
+                                                <option value="english" <?php echo ($row->medium == 'english') ? 'selected' : ''; ?>>English</option>
+                                                <option value="tamil" <?php echo ($row->medium == 'tamil') ? 'selected' : ''; ?>>Tamil</option>
+                                                <option value="both" <?php echo ($row->medium == 'both') ? 'selected' : ''; ?>>Both</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Type</label>
+                                            <select name="type" class="form-control" required='true'>
+                                                <option value="compulsory" <?php echo ($row->type == 'compulsory') ? 'selected' : ''; ?>>Compulsory</option>
+                                                <option value="b1" <?php echo ($row->type == 'b1') ? 'selected' : ''; ?>>Basket 1</option>
+                                                <option value="b2" <?php echo ($row->type == 'b2') ? 'selected' : ''; ?>>Basket 2</option>
+                                                <option value="b3" <?php echo ($row->type == 'b3') ? 'selected' : ''; ?>>Basket 3</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputName1">Subject ID</label>
+                                            <input type="text" name="subid" value="<?php echo htmlentities($row->sub_id); ?>" class="form-control" readonly='true'>
+                                        </div>
+
+                                        <button type="submit" name="submit" class="btn btn-primary">Update Subject</button>
+                                    <?php }
+                                } ?>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          
-          
-         <?php include_once('includes/footer.php');?>
-          
         </div>
-        
-      </div>
-      
+
+        <?php include_once('includes/footer.php'); ?>
     </div>
-    
-   <?php }}  ?>
+</div>

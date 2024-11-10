@@ -32,14 +32,11 @@ if($query -> rowCount() == 0){
  $query->bindParam(':sub_id',$subid,PDO::PARAM_STR);
  $query->execute();
    $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
+  
     echo '<script>alert("Subject has been added.")</script>';
 echo "<script>window.location.href ='add-subject.php'</script>";
-  }
-  else
-    {
-         echo '<script>alert("Something Went Wrong. Please try again")</script>';
-    }
+ 
+
 }
 
 else
@@ -80,7 +77,7 @@ echo "<script>alert('Subject Id already exist. Please try again');</script>";
                     <form class="forms-sample row" method="post" enctype="multipart/form-data" >
                     <div class="form-group col-md-6">
                         <label for="exampleInputName1">Subject Id</label>
-                        <input type="text" name="subid" value="" class="form-control" required='true'>
+                        <input type="number" name="subid" value="" class="form-control" required='true'>
                       </div>
                      
                       <div class="form-group col-md-6">

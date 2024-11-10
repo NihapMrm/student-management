@@ -6,7 +6,7 @@ $base_url = 'http://localhost/royalsgrid/Student management system/';
 <html lang="en">
   <head>
    
-    <title>MLCK Student Management System|| Update About Us</title>
+    <title>MLCK Student Management System</title>
     
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>assets/vendors/flag-icon-css/css/flag-icon.min.css">

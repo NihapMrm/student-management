@@ -9,7 +9,6 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
   } else{
    if(isset($_POST['submit']))
   {
-    $trid = $_POST['trid'];
     $trname = $_POST['trname'];
     $tremail = $_POST['tremail'];
     $gender = $_POST['gender'];
@@ -26,14 +25,13 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
 
   
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
-  $sql = "UPDATE tblteacher SET id=:trid, name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address, image=:image WHERE id=:eid";
+  $sql = "UPDATE tblteacher SET name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address, image=:image WHERE id=:eid";
 } else {
     
-    $sql = "UPDATE tblteacher SET id=:trid, name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address WHERE id=:eid";
+    $sql = "UPDATE tblteacher SET name=:trname, email=:tremail, gender=:gender, dob=:dob, sub_id=:subid, mobile_number=:connum, address=:address WHERE id=:eid";
   }
 $query=$dbh->prepare($sql);
-$query->bindParam(':trid', $trid, PDO::PARAM_STR);
-$query->bindParam(':trname', $trname, PDO::PARAM_STR);
+$query->bindParam(':trname', $trname, type: PDO::PARAM_STR);
 $query->bindParam(':tremail', $tremail, PDO::PARAM_STR);
 $query->bindParam(':gender', $gender, PDO::PARAM_STR);
 $query->bindParam(':dob', $dob, PDO::PARAM_STR);
@@ -91,7 +89,7 @@ foreach($results as $row)
 {               ?>
                                <div class="form-group">
                                     <label for="exampleInputName1">Teacher ID <span style='color:red;'>*</span></label>
-                                    <input type="text" name="trid" value="<?php  echo htmlentities($row->id);?>" class="form-control" required>
+                                    <input type="number" name="trid" value="<?php  echo htmlentities($row->id);?>" class="form-control" required>
                                 </div>
                       <div class="form-group">
                         <label for="exampleInputName1">Teacher Name</label>
