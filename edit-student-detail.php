@@ -12,7 +12,6 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
  $stuname=$_POST['stuname'];
  $stuemail=$_POST['stuemail'];
  $stuclass=$_POST['stuclass'];
- $gender=$_POST['gender'];
  $dob=$_POST['dob'];
  $stuid=$_POST['stuid'];
  $fname=$_POST['fname'];
@@ -29,16 +28,15 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
 
   
   move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
-  $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, Gender=:gender, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address, Image=:image WHERE ID=:eid";
+  $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address, Image=:image WHERE ID=:eid";
 } else {
     
-    $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, Gender=:gender, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address WHERE ID=:eid";
+    $sql = "UPDATE tblstudent SET StudentName=:stuname, StudentEmail=:stuemail, StudentClass=:stuclass, DOB=:dob, StuID=:stuid, FatherName=:fname, MotherName=:mname, ContactNumber=:connum, AltenateNumber=:altconnum, Address=:address WHERE ID=:eid";
 }
 $query=$dbh->prepare($sql);
 $query->bindParam(':stuname',$stuname,PDO::PARAM_STR);
 $query->bindParam(':stuemail',$stuemail,PDO::PARAM_STR);
 $query->bindParam(':stuclass',$stuclass,PDO::PARAM_STR);
-$query->bindParam(':gender',$gender,PDO::PARAM_STR);
 $query->bindParam(':dob',$dob,PDO::PARAM_STR);
 $query->bindParam(':stuid',$stuid,PDO::PARAM_STR);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
@@ -85,7 +83,7 @@ if (!empty($_FILES['image']['name'])) {
                     <form class="forms-sample" method="post" enctype="multipart/form-data">
                       <?php
 $eid=$_GET['editid'];
-$sql="SELECT tblstudent.StudentName,tblstudent.StudentEmail,tblstudent.StudentClass,tblstudent.Gender,tblstudent.DOB,tblstudent.StuID,tblstudent.FatherName,tblstudent.MotherName,tblstudent.ContactNumber,tblstudent.AltenateNumber,tblstudent.Address,tblstudent.UserName,tblstudent.Password,tblstudent.Image,tblstudent.DateofAdmission,tblclass.ClassName,tblclass.Section from tblstudent join tblclass on tblclass.ID=tblstudent.StudentClass where tblstudent.ID=:eid";
+$sql="SELECT tblstudent.StudentName,tblstudent.StudentEmail,tblstudent.StudentClass,tblstudent.DOB,tblstudent.StuID,tblstudent.FatherName,tblstudent.MotherName,tblstudent.ContactNumber,tblstudent.AltenateNumber,tblstudent.Address,tblstudent.UserName,tblstudent.Password,tblstudent.Image,tblstudent.DateofAdmission,tblclass.ClassName,tblclass.Section from tblstudent join tblclass on tblclass.ID=tblstudent.StudentClass where tblstudent.ID=:eid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':eid',$eid,PDO::PARAM_STR);
 $query->execute();
@@ -121,14 +119,7 @@ foreach($result2 as $row1)
  <?php } ?> 
                         </select>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Gender</label>
-                        <select name="gender" class="form-control" required>
-    <option value="Male" <?php if ($row->Gender == 'Male') echo 'selected'; ?>>Male</option>
-    <option value="Female" <?php if ($row->Gender == 'Female') echo 'selected'; ?>>Female</option>
-</select>
-
-                      </div>
+                   
                       <div class="form-group">
                         <label for="exampleInputName1">Date of Birth</label>
                         <input type="date" name="dob" value="<?php  echo htmlentities($row->DOB);?>" class="form-control" >
@@ -136,7 +127,7 @@ foreach($result2 as $row1)
                      
                       <div class="form-group">
                         <label for="exampleInputName1">Student ID</label>
-                        <input type="text" name="stuid" value="<?php  echo htmlentities($row->StuID);?>" class="form-control" readonly='true'>
+                        <input type="number" name="stuid" value="<?php  echo htmlentities($row->StuID);?>" class="form-control" readonly='true'>
                       </div>
                       <div class="form-group">
     <img src="<?php echo !empty($row->Image) ? htmlentities($row->Image) : 'assets/images/default.webp'; ?>" 

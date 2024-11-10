@@ -11,7 +11,6 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
         $stuname = $_POST['stuname'];
         $stuemail = $_POST['stuemail'];
         $stuclass = $_POST['stuclass'];
-        $gender = $_POST['gender'];
         $dob = $_POST['dob'];
         $stuid = $_POST['stuid'];
         $fname = $_POST['fname'];
@@ -22,55 +21,60 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
         $uname = $_POST['uname'];
         $password = md5($_POST['password']);
         $image = $_FILES["image"]["name"];
-
+        
         $ret = "SELECT UserName FROM tblstudent WHERE UserName=:uname OR StuID=:stuid";
         $query = $dbh->prepare($ret);
         $query->bindParam(':uname', $uname, PDO::PARAM_STR);
         $query->bindParam(':stuid', $stuid, PDO::PARAM_STR);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_OBJ);
-
+    
         if ($query->rowCount() == 0) {
-            $extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-            $allowed_extensions = array("jpg", "jpeg", "png", "gif", "webp");
-            $targetDir = "assets/uploads/Students/";
-            $randomName = uniqid() . '.' . $extension;
-            $targetFile = $targetDir . $randomName;
-
-            
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-                $sql = "INSERT INTO tblstudent (StudentName, StudentEmail, StudentClass, Gender, DOB, StuID, FatherName, MotherName, ContactNumber, AltenateNumber, Address, UserName, Password, Image) VALUES (:stuname, :stuemail, :stuclass, :gender, :dob, :stuid, :fname, :mname, :connum, :altconnum, :address, :uname, :password, :image)";
-                $query = $dbh->prepare($sql);
-                $query->bindParam(':stuname', $stuname, PDO::PARAM_STR);
-                $query->bindParam(':stuemail', $stuemail, PDO::PARAM_STR);
-                $query->bindParam(':stuclass', $stuclass, PDO::PARAM_STR);
-                $query->bindParam(':gender', $gender, PDO::PARAM_STR);
-                $query->bindParam(':dob', $dob, PDO::PARAM_STR);
-                $query->bindParam(':stuid', $stuid, PDO::PARAM_STR);
-                $query->bindParam(':fname', $fname, PDO::PARAM_STR);
-                $query->bindParam(':mname', $mname, PDO::PARAM_STR);
-                $query->bindParam(':connum', $connum, PDO::PARAM_STR);
-                $query->bindParam(':altconnum', $altconnum, PDO::PARAM_STR);
-                $query->bindParam(':address', $address, PDO::PARAM_STR);
-                $query->bindParam(':uname', $uname, PDO::PARAM_STR);
-                $query->bindParam(':password', $password, PDO::PARAM_STR);
-                $query->bindParam(':image', $targetFile, PDO::PARAM_STR);
-                $query->execute();
-
-                $LastInsertId = $dbh->lastInsertId();
-                if ($LastInsertId > 0) {
-                    echo '<script>alert("Student has been added.")</script>';
-                    echo "<script>window.location.href ='add-students.php'</script>";
+            $imagePath = ""; 
+    
+            if (!empty($image)) {
+                $extension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+                $allowed_extensions = array("jpg", "jpeg", "png", "gif", "webp");
+                $targetDir = "assets/uploads/Students/";
+                $randomName = uniqid() . '.' . $extension;
+                $targetFile = $targetDir . $randomName;
+    
+                if (in_array($extension, $allowed_extensions) && move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                    $imagePath = $targetFile; 
                 } else {
-                    echo '<script>alert("Something Went Wrong. Please try again")</script>';
+                    echo '<script>alert("Error uploading the image. Please try again.");</script>';
                 }
+            }
+    
+            $sql = "INSERT INTO tblstudent (StudentName, StudentEmail, StudentClass, DOB, StuID, FatherName, MotherName, ContactNumber, AltenateNumber, Address, UserName, Password, Image) VALUES (:stuname, :stuemail, :stuclass, :dob, :stuid, :fname, :mname, :connum, :altconnum, :address, :uname, :password, :image)";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':stuname', $stuname, PDO::PARAM_STR);
+            $query->bindParam(':stuemail', $stuemail, PDO::PARAM_STR);
+            $query->bindParam(':stuclass', $stuclass, PDO::PARAM_STR);
+            $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+            $query->bindParam(':stuid', $stuid, PDO::PARAM_STR);
+            $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':mname', $mname, PDO::PARAM_STR);
+            $query->bindParam(':connum', $connum, PDO::PARAM_STR);
+            $query->bindParam(':altconnum', $altconnum, PDO::PARAM_STR);
+            $query->bindParam(':address', $address, PDO::PARAM_STR);
+            $query->bindParam(':uname', $uname, PDO::PARAM_STR);
+            $query->bindParam(':password', $password, PDO::PARAM_STR);
+            $query->bindParam(':image', $imagePath, PDO::PARAM_STR);  
+            $query->execute();
+    
+            $LastInsertId = $dbh->lastInsertId();
+            if ($LastInsertId > 0) {
+                echo '<script>alert("Student has been added.")</script>';
+                echo "<script>window.location.href ='add-students.php'</script>";
             } else {
-                echo '<script>alert("Error uploading the image. Please try again.");</script>';
+                echo '<script>alert("Something Went Wrong. Please try again")</script>';
             }
         } else {
             echo "<script>alert('Username or Student ID already exists. Please try again');</script>";
         }
     }
+    
 ?>
 
 
@@ -119,25 +123,18 @@ if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
                                         <?php } ?> 
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputName1">Gender <span style='color:red;'>*</span></label>
-                                    <select name="gender" class="form-control" required>
-                                        <option value="">Choose Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-                                </div>
+                              
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputName1">Date of Birth</label>
                                     <input type="date" name="dob" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputName1">Student ID <span style='color:red;'>*</span></label>
-                                    <input type="text" name="stuid" class="form-control" required>
+                                    <input type="number" name="stuid" class="form-control" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputName1">Student Photo</label>
-                                    <input type="file" name="image" class="form-control" required>
+                                    <input type="file" name="image" class="form-control">
                                 </div>
                                 <h3 class="col-md-12">Parents/Guardian's details</h3>
                                 <div class="form-group col-md-6">
