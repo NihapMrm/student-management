@@ -1,28 +1,29 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
-error_reporting(0);
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
-  } else{
+include('../includes/dbconnection.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'student') {
+    echo "<script>alert('You are not authorized to access this page. Please log in as a student.');</script>";
+    echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+    exit();
+} else{
 if(isset($_POST['submit']))
 {
-$adminid=$_SESSION['sturecmsaid'];
+$id=$_SESSION['sturecmsaid'];
 $cpassword=md5($_POST['currentpassword']);
 $newpassword=md5($_POST['newpassword']);
-$sql ="SELECT ID FROM tbladmin WHERE ID=:adminid and Password=:cpassword";
+$sql ="SELECT ID FROM tblstudent WHERE ID=:id and Password=:cpassword";
 $query= $dbh -> prepare($sql);
-$query-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query-> bindParam(':cpassword', $cpassword, PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
 
 if($query -> rowCount() > 0)
 {
-$con="update tbladmin set Password=:newpassword where ID=:adminid";
+$con="update tblstudent set Password=:newpassword where ID=:id";
 $chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':adminid', $adminid, PDO::PARAM_STR);
+$chngpwd1-> bindParam(':id', $id, PDO::PARAM_STR);
 $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
 $chngpwd1->execute();
 
@@ -33,16 +34,16 @@ echo '<script>alert("Your current password is wrong")</script>';
 }
 }
   ?>
-
+ 
 
  
-      <!-- partial:partials/_navbar.html -->
-     <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
+     <?php include_once('../includes/header.php');?>
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
-      <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
+      <?php include_once('../includes/sidebar.php');?>
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -84,15 +85,15 @@ echo '<script>alert("Your current password is wrong")</script>';
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-         <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
+          
+         <?php include_once('../includes/footer.php');?>
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+    
+    
    <?php }  ?>

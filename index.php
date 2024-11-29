@@ -17,13 +17,13 @@ $query-> bindParam(':password', $password, PDO::PARAM_STR);
 {
 foreach ($results as $result) {
 $_SESSION['sturecmsaid']=$result->ID;
+$_SESSION['user_type'] = 'admin';
 }
 
 
   if(!empty($_POST["remember"])) {
-//COOKIES for username
 setcookie ("user_login",$_POST["username"],time()+ (10 * 365 * 24 * 60 * 60));
-//COOKIES for password
+
 setcookie ("userpassword",$_POST["password"],time()+ (10 * 365 * 24 * 60 * 60));
 } else {
 if(isset($_COOKIE["user_login"])) {
@@ -40,24 +40,22 @@ echo "<script>alert('Invalid Details');</script>";
 }
 }
 
-?><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com -->  
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   
     <title>Edu Authorities Student Management System|| Login Page</title>
-    <!-- plugins:css -->
+    
     <link rel="stylesheet" href="assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
+    
+    
+    
+    
+    
+    
     <link rel="stylesheet" href="assets/css/style.css">
    <style>
      .content-wrapper{
@@ -89,36 +87,32 @@ echo "<script>alert('Invalid Details');</script>";
                   <div class="mt-3">
                     <button class="btn btn-success btn-block loginbtn" name="login" type="submit">Login</button>
                   </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" id="remember" class="form-check-input" name="remember" <?php if(isset($_COOKIE["user_login"])) { ?> checked <?php } ?> /> Keep me signed in </label>
-                    </div>
-                    <a href="forgot-password.php" class="auth-link text-black">Forgot password?</a>
+                  <div class="mt-3 d-flex gap-3 justify-content-between">
+                    <a href="teacher" class="btn btn-success">Teacher</a>
+                    <a href="student" class="btn btn-success">Student</a>
+
                   </div>
-         <!--          <div class="mb-2">
-                    <a href="../index.php" class="btn btn-block btn-facebook auth-form-btn">
-                      <i class="icon-social-home mr-2"></i>Back Home </a>
-                  </div> -->
-                  
+        
+                  </div>
+     
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+    
+    
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
+    
+    
+    
+    
     <script src="assets/js/off-canvas.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <!-- endinject -->
+    
   </body>
 </html>

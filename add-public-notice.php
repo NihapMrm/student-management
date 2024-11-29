@@ -2,8 +2,10 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
   } else{
    if(isset($_POST['submit']))
   {
@@ -27,13 +29,13 @@ echo "<script>window.location.href ='add-public-notice.php'</script>";
 }
   ?>
 
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -60,7 +62,7 @@ echo "<script>window.location.href ='add-public-notice.php'</script>";
                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">Notice Message</label>
-                        <textarea name="notmsg" value="" class="form-control"></textarea>
+                        <textarea name="notmsg" value="" class="form-control" rows="8"></textarea>
                       </div>
                    
                       <button type="submit" class="btn btn-primary mr-2" name="submit">Add</button>
@@ -71,14 +73,14 @@ echo "<script>window.location.href ='add-public-notice.php'</script>";
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+      
     </div>
-    <!-- container-scroller -->
+    
 <?php }  ?>

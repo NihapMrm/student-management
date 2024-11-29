@@ -2,18 +2,20 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['sturecmsaid']==0)) {
-  header('location:logout.php');
+if (!isset($_SESSION['sturecmsaid']) || $_SESSION['user_type'] !== 'admin') {
+  echo "<script>alert('You are not authorized to access this page. Please log in as a admin.');</script>";
+  echo "<script type='text/javascript'> document.location ='logout.php'; </script>";
+  exit();
   } else{
     if(isset($_POST['submit']))
   {
     $adminid=$_SESSION['sturecmsaid'];
-    $AName=$_POST['adminname'];
+    $AName=$_POST['name'];
   $mobno=$_POST['mobilenumber'];
   $email=$_POST['email'];
-  $sql="update tbladmin set AdminName=:adminname,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
+  $sql="update tbladmin set name=:name,MobileNumber=:mobilenumber,Email=:email where ID=:aid";
      $query = $dbh->prepare($sql);
-     $query->bindParam(':adminname',$AName,PDO::PARAM_STR);
+     $query->bindParam(':name',$AName,PDO::PARAM_STR);
      $query->bindParam(':email',$email,PDO::PARAM_STR);
      $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
      $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
@@ -23,17 +25,15 @@ $query->execute();
     echo "<script>window.location.href ='profile.php'</script>";
 
   }
-  ?><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
+  ?>
 
-      <!-- partial:partials/_navbar.html -->
+      
      <?php include_once('includes/header.php');?>
-      <!-- partial -->
+      
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+        
       <?php include_once('includes/sidebar.php');?>
-        <!-- partial -->
+        
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="page-header">
@@ -66,7 +66,7 @@ foreach($results as $row)
 {               ?>
                       <div class="form-group">
                         <label for="exampleInputName1">Admin Name</label>
-                        <input type="text" name="adminname" value="<?php  echo $row->AdminName;?>" class="form-control" required='true'>
+                        <input type="text" name="name" value="<?php  echo $row->name;?>" class="form-control" required='true'>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail3">User Name</label>
@@ -92,15 +92,13 @@ foreach($results as $row)
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
+          
+          
          <?php include_once('includes/footer.php');?>
-          <!-- partial -->
+          
         </div>
-        <!-- main-panel ends -->
-      </div><!--  Orginal Author Name: Mayuri.K. 
- for any PHP, Codeignitor, Laravel OR Python work contact me at mdkhairnar92@gmail.com  
- Visit website : https://mayurik.com --> 
-      <!-- page-body-wrapper ends -->
+        
+      </div>
+      
    
   <?php }  ?>
